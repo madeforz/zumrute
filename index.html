@@ -1955,44 +1955,49 @@ background: rgba(255,255,255,0.20);
 
 .late-night-message {
     position: fixed;
+
+    top: 20px;
     left: 50%;
-    top: 50%;
-    z-index: 999999;
 
-    width: min(420px, calc(100% - 40px));
-    padding: 22px 26px;
+   width: min(540px, calc(100% - 30px));
+   padding: 22px 30px;
 
-    background: rgba(255, 240, 247, 0.96);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
 
-    color: #762f50;
-    font-size: 15px;
-    font-weight: 600;
+    background: rgba(55, 55, 60, 0.96);
+   color: #ffffff !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+
+   font-size: 15px;
+font-weight: 600;
+    line-height: 1.5;
     text-align: center;
-    line-height: 1.6;
 
-    box-shadow: 0 12px 40px rgba(118, 47, 80, 0.20);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.25);
+
+    z-index: 9999999;
 
     opacity: 0;
     visibility: hidden;
-    transform: translate(-50%, -45%) scale(0.95);
+
+    transform:
+        translate(-50%, -90px);
 
     transition:
-        opacity 0.6s ease,
-        transform 0.6s ease,
-        visibility 0.6s;
+        opacity 0.55s ease,
+        transform 0.7s cubic-bezier(.22,.8,.32,1),
+        visibility 0.55s;
 }
+
 
 .late-night-message.show {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, -50%) scale(1);
-}
 
-.late-night-message.show {
-    opacity: 1;
-    transform: translateY(0);
+    transform:
+        translate(-50%, 0);
 }
 @keyframes sparkleDisappear {
 
@@ -8359,24 +8364,34 @@ body.story-stage-4 {
 
 <script>
 
-    // GECE MESAJI
-if (hour >= 0 && hour < 6) {
-    message.textContent =
-        "Bu saatte hâlâ buradaysan site görevini fazlasıyla yapmış. ♡";
+// GECE MESAJI
+function checkLateNightMessage() {
 
-    // 1 saniye sonra göster
-    setTimeout(() => {
-        message.classList.add("show");
+    const hour = new Date().getHours();
+    const message = document.getElementById("lateNightMessage");
 
-        // 3 saniye ekranda tut, sonra yumuşakça kaldır
+    if (!message) return;
+
+    if (hour >= 0 && hour < 6) {
+
+        message.textContent =
+            "Bu saatte hâlâ buradaysan site görevini fazlasıyla yapmış. ♡";
+
+        // 1 saniye sonra göster
         setTimeout(() => {
-            message.classList.remove("show");
-        }, 3000);
 
-    }, 1000);
+            message.classList.add("show");
+
+            // 3 saniye göster, sonra kaldır
+            setTimeout(() => {
+                message.classList.remove("show");
+            }, 5000);
+
+        }, 0);
+    }
 }
 
-checkLateNightMessage();
+
 
     // SEKME BAŞLIĞI EASTER EGG
 const originalPageTitle = document.title;
@@ -10383,10 +10398,14 @@ function closeWelcomeGuide() {
 
     guide.classList.add("hide");
 
-    setTimeout(() => {
-        guide.style.display = "none";
-    }, 600);
-}
+   setTimeout(() => {
+    guide.style.display = "none";
+
+   
+    checkLateNightMessage();
+
+}, 600);
+} 
 
 /* =========================================
    DİLEK / GECE GÖKYÜZÜ
