@@ -14,7 +14,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #08080d;
+  background: #f8b4cd;
     color: white;
     min-height: 100vh;
     overflow: hidden;
@@ -24,19 +24,29 @@ body {
     position: fixed;
     inset: 0;
     display: flex;
+    pointer-events: none;
     justify-content: center;
     align-items: center;
     padding: 25px;
     opacity: 0;
     visibility: hidden;
-    transform: scale(1.03);
-    transition: 1.4s ease;
+transition:
+    opacity 0.8s ease,
+    transform 0.8s ease,
+    visibility 0s linear 0.8s;
+
 }
 
 .screen.active {
     opacity: 1;
     visibility: visible;
     transform: scale(1);
+    pointer-events: auto;
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease,
+        visibility 0s;
 }
 
 .container {
@@ -1917,6 +1927,8 @@ background: rgba(255,255,255,0.20);
     transform: translate(-50%, 0);
 }
 
+
+
 /* MOUSE / TOUCH IŞILTILARI */
 
 .cursor-sparkle {
@@ -1929,44 +1941,70 @@ background: rgba(255,255,255,0.20);
 
     font-size: 18px;
 
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.82);
 
-   text-shadow:
-    0 0 8px rgba(255,255,255,1),
-    0 0 16px rgba(255,120,175,0.8),
-    0 0 24px rgba(255,120,175,0.45);
+    text-shadow:
+        0 0 6px rgba(255,255,255,0.70),
+        0 0 12px rgba(255,120,175,0.40);
+
     transform: translate(-50%, -50%);
 
     animation:
-        sparkleDisappear 1.2s ease-out forwards;
+        sparkleDisappear 1.15s ease-out forwards;
 }
 
+/* GECE MESAJI */
+.late-night-message {
+    margin-top: 14px;
+    margin-bottom: 14px;
+
+    font-size: 12px;
+    letter-spacing: 0.5px;
+
+    color: rgba(118, 47, 80, 0.75);
+
+    opacity: 0;
+    transform: translateY(5px);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+}
+
+.late-night-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 @keyframes sparkleDisappear {
 
     0% {
-        opacity: 0;
+        opacity: 0.65;
         transform:
             translate(-50%, -50%)
-            scale(0.4);
+            scale(0.75);
     }
 
-    20% {
-        opacity: 1;
+    25% {
+        opacity: 0.55;
+        transform:
+            translate(-50%, -55%)
+            scale(0.9);
+    }
+
+    60% {
+        opacity: 0.30;
+        transform:
+            translate(-50%, -65%)
+            scale(0.75);
     }
 
     100% {
         opacity: 0;
-
         transform:
-            translate(
-                calc(-50% + var(--spark-x)),
-                calc(-50% - 28px)
-            )
-            rotate(var(--spark-r))
-            scale(1.15);
+            translate(-50%, -85%)
+            scale(0.35);
     }
 }
-
 /* SAYFA İLERLEDİKÇE ARKA PLAN ATMOSFERİ */
 
 body {
@@ -2899,6 +2937,9 @@ body.story-stage-4 {
         repeat(2, 1fr);
 
     gap: 12px;
+
+
+    
 }
 
 .visit-stat {
@@ -7355,7 +7396,7 @@ body.story-stage-4 {
             Sana küçük bir şey hazırlamaya çalıştım.
             Ama sonuna kadar gitmen gerekiyor.
         </p>
-
+<p id="lateNightMessage" class="late-night-message"></p>
         <button id="startButton" onclick="fakeStart(this)">
     BAŞLAYALIM →
 </button>
@@ -8197,6 +8238,16 @@ body.story-stage-4 {
     </div>
 
 </div>
+
+<div class="visit-stat visit-stat-wide">
+    <span>🎯</span>
+
+    <div>
+        <small>Kazım'ı tanıma seviyesi</small>
+        <strong id="statKazimQuiz">-/3</strong>
+    </div>
+</div>
+
     </div>
 
     <p class="visit-report-comment" id="visitReportComment">
@@ -8300,6 +8351,41 @@ body.story-stage-4 {
 
 
 <script>
+
+    // GECE MESAJI
+function checkLateNightMessage() {
+
+    const hour = new Date().getHours();
+    const message = document.getElementById("lateNightMessage");
+
+    if (!message) return;
+
+    // 00:00 - 05:59
+    if (hour >= 0 && hour < 6) {
+
+        message.textContent =
+            "Bu saatte hâlâ buradaysan site görevini fazlasıyla yapmış. ♡";
+
+        setTimeout(() => {
+            message.classList.add("show");
+        }, 1200);
+    }
+}
+
+checkLateNightMessage();
+
+    // SEKME BAŞLIĞI EASTER EGG
+const originalPageTitle = document.title;
+
+document.addEventListener("visibilitychange", function () {
+
+    if (document.hidden) {
+        document.title = "Nereye gidiyorsun? 🥺";
+    } else {
+        document.title = originalPageTitle;
+    }
+
+});
 
 let startClicked = false;
 
@@ -8423,7 +8509,7 @@ if (bloomHint) {
             startMotivationPage();
         }
 
-    }, 700);
+    }, 800);
 
 }
 
@@ -10197,6 +10283,10 @@ function createSparkle(x, y) {
 
     sparkle.className =
         "cursor-sparkle";
+        sparkle.style.position = "fixed";
+sparkle.style.pointerEvents = "none";
+sparkle.style.zIndex = "999999";
+sparkle.style.transform = "translate(-50%, -50%)";
 
     sparkle.textContent =
         sparkleSymbols[
@@ -10224,9 +10314,9 @@ function createSparkle(x, y) {
 
     document.body.appendChild(sparkle);
 
-    setTimeout(() => {
-        sparkle.remove();
-    }, 950);
+   setTimeout(() => {
+    sparkle.remove();
+}, 750);
 }
 
 
@@ -10571,6 +10661,8 @@ if (barbieStat) {
 
     }
 }
+
+
 
 
     /* SONUCA GÖRE KÜÇÜK YORUM */
@@ -12762,3 +12854,7 @@ function finishKazimQuiz() {
 
 </body>
 </html>
+
+
+
+
