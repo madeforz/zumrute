@@ -1953,22 +1953,41 @@ background: rgba(255,255,255,0.20);
         sparkleDisappear 1.15s ease-out forwards;
 }
 
-/* GECE MESAJI */
 .late-night-message {
-    margin-top: 14px;
-    margin-bottom: 14px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 999999;
 
-    font-size: 12px;
-    letter-spacing: 0.5px;
+    width: min(420px, calc(100% - 40px));
+    padding: 22px 26px;
 
-    color: rgba(118, 47, 80, 0.75);
+    background: rgba(255, 240, 247, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+
+    color: #762f50;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.6;
+
+    box-shadow: 0 12px 40px rgba(118, 47, 80, 0.20);
 
     opacity: 0;
-    transform: translateY(5px);
+    visibility: hidden;
+    transform: translate(-50%, -45%) scale(0.95);
 
     transition:
-        opacity 1.5s ease,
-        transform 1.5s ease;
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        visibility 0.6s;
+}
+
+.late-night-message.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .late-night-message.show {
@@ -8353,23 +8372,20 @@ body.story-stage-4 {
 <script>
 
     // GECE MESAJI
-function checkLateNightMessage() {
+if (hour >= 0 && hour < 6) {
+    message.textContent =
+        "Bu saatte hâlâ buradaysan site görevini fazlasıyla yapmış. ♡";
 
-    const hour = new Date().getHours();
-    const message = document.getElementById("lateNightMessage");
+    // 1 saniye sonra göster
+    setTimeout(() => {
+        message.classList.add("show");
 
-    if (!message) return;
-
-    // 00:00 - 05:59
-    if (hour >= 0 && hour < 6) {
-
-        message.textContent =
-            "Bu saatte hâlâ buradaysan site görevini fazlasıyla yapmış. ♡";
-
+        // 3 saniye ekranda tut, sonra yumuşakça kaldır
         setTimeout(() => {
-            message.classList.add("show");
-        }, 1200);
-    }
+            message.classList.remove("show");
+        }, 3000);
+
+    }, 1000);
 }
 
 checkLateNightMessage();
