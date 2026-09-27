@@ -9509,7 +9509,7 @@ function playSecretPhotoSong() {
     );
 
     secretPhotoAudio.preload = "auto";
-    secretPhotoAudio.volume = 0.25;
+    secretPhotoAudio.volume = 0.15;
 
     // MP3 hazır olduğunda 01:36'ya git ve çal
     secretPhotoAudio.addEventListener("loadedmetadata", function () {
@@ -9694,7 +9694,7 @@ if (selectedPhoto.secretSong) {
 
     playSecretPhotoSong();
 
-    return;
+    
 }
     const activeScreen =
         document.querySelector(".screen.active");
