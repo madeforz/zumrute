@@ -9849,7 +9849,23 @@ function closePhotoMemory() {
         document.getElementById("photoMemoryModal");
 
     if (!modal) return;
+// Gizli şarkı çalıyorsa fotoğraf kapanınca onu da kapat
+if (secretPhotoAudio) {
 
+    secretPhotoAudio.pause();
+    secretPhotoAudio.currentTime = 0;
+    secretPhotoAudio = null;
+
+    // Ana müzik fotoğraf açılmadan önce çalıyorsa devam ettir
+    const backgroundMusic =
+        document.getElementById("backgroundMusic");
+
+    if (resumeBackgroundMusic && backgroundMusic) {
+        backgroundMusic.play();
+    }
+
+    resumeBackgroundMusic = false;
+}
     modal.classList.remove("show");
 
     setTimeout(() => {
