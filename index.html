@@ -9489,17 +9489,17 @@ function playSecretPhotoSong() {
     const backgroundMusic =
         document.getElementById("backgroundMusic");
 
-    // Özel şarkı zaten çalıyorsa tekrar başlatma
+    // Zaten çalıyorsa tekrar başlatma
     if (secretPhotoAudio && !secretPhotoAudio.paused) {
         return;
     }
 
-    // Ana müzik o anda gerçekten çalıyor muydu?
+    // Ana müzik çalıyor muydu?
     resumeBackgroundMusic =
         backgroundMusic &&
         !backgroundMusic.paused;
 
-    // Çalıyorsa geçici olarak durdur
+    // Ana müziği durdur
     if (resumeBackgroundMusic) {
         backgroundMusic.pause();
     }
@@ -9508,27 +9508,38 @@ function playSecretPhotoSong() {
         "Sevmeden Geçer Zaman (feat. Şebnem Ferah).mp3"
     );
 
-    // 01:36
-    secretPhotoAudio.currentTime = 96;
+    secretPhotoAudio.preload = "auto";
 
-    secretPhotoAudio.play();
+    // MP3 hazır olduğunda 01:36'ya git ve çal
+    secretPhotoAudio.addEventListener("loadedmetadata", function () {
 
-    // 01:36 → 02:10 = 34 saniye
-    secretPhotoTimer = setTimeout(() => {
-
-        secretPhotoAudio.pause();
         secretPhotoAudio.currentTime = 96;
 
-        // Ana müzik biz durdurmadan önce çalıyorsa devam ettir
-        if (resumeBackgroundMusic && backgroundMusic) {
-            backgroundMusic.play();
+        secretPhotoAudio.play().catch(error => {
+            console.error("Gizli şarkı çalınamadı:", error);
+        });
+
+    }, { once: true });
+
+
+    // 02:10'a geldiğinde durdur
+    secretPhotoAudio.addEventListener("timeupdate", function () {
+
+        if (secretPhotoAudio && secretPhotoAudio.currentTime >= 130) {
+
+            secretPhotoAudio.pause();
+
+            // Ana müzik önceden çalıyorsa geri başlat
+            if (resumeBackgroundMusic && backgroundMusic) {
+                backgroundMusic.play();
+            }
+
+            secretPhotoAudio = null;
+            resumeBackgroundMusic = false;
         }
 
-        secretPhotoAudio = null;
-        secretPhotoTimer = null;
-        resumeBackgroundMusic = false;
+    });
 
-    }, 34000);
 }
 /* ARKA PLANDA DÖNEN FOTOĞRAFLAR */
 
