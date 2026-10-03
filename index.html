@@ -1125,49 +1125,38 @@ background: rgba(255,255,255,0.20);
 
 
 .saved-note-date {
-    margin-top:
-        20px !important;
+    margin-top: 20px !important;
+    padding-top: 12px;
 
-    padding-top:
-        12px;
+    border-top: 1px solid rgba(118, 47, 80, 0.15);
 
-    border-top:
-        1px solid
-        rgba(118,47,80,.15);
+    color: rgba(118, 47, 80, 0.65) !important;
 
-    color:
-        rgba(118,47,80,.65) !important;
+    font-family: "Courier New", monospace;
+    font-size: 12px !important;
 
-    font-family:
-        "Courier New",
-        monospace;
+    text-align: right;
+}
 
-    font-size:
-        12px !important;
-
-    text-align:
-        right;
-
-        .note-delete {
+.note-delete {
     margin-top: 12px;
     padding: 7px 14px;
 
-    border: 1px solid rgba(118,47,80,.25);
+    border: 1px solid rgba(118, 47, 80, 0.25);
     border-radius: 20px;
 
-    background: rgba(255,255,255,.35);
+    background: rgba(255, 255, 255, 0.35);
     color: #762f50;
 
     font-size: 11px;
     cursor: pointer;
 
-    transition: .25s ease;
+    transition: 0.25s ease;
 }
 
 .note-delete:hover {
     background: #762f50;
     color: white;
-}
 }
 
 
@@ -1205,6 +1194,2039 @@ background: rgba(255,255,255,0.20);
 
 }
 
+
+
+/* =========================================
+   MESAJ KUTUSU
+========================================= */
+
+.mailbox-widget {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 99999;
+}
+
+.mailbox-button {
+    position: relative;
+
+    width: 58px;
+    height: 58px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    border-radius: 50% !important;
+
+    background: rgba(255,255,255,0.88) !important;
+    color: #762f50 !important;
+
+    box-shadow:
+        0 8px 25px rgba(80,25,50,0.18) !important;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+.mailbox-button:hover {
+    transform: translateY(-4px) scale(1.05) !important;
+
+    box-shadow:
+        0 12px 32px rgba(80,25,50,0.25) !important;
+}
+
+.mailbox-icon {
+    font-size: 25px;
+    line-height: 1;
+}
+
+
+/* YENİ MESAJ SAYISI */
+
+.mailbox-badge {
+    position: absolute;
+
+    top: -6px;
+    right: -6px;
+
+    min-width: 22px;
+    height: 22px;
+
+    padding: 0 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d94f82;
+    color: white;
+
+    border:
+        2px solid white;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 12px rgba(80,25,50,0.22);
+}
+
+/* =========================================
+   POSTA KUTUSU AÇILIR PENCERE
+========================================= */
+
+.mailbox-modal {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(55, 20, 38, 0.48);
+
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+
+    z-index: 9999999;
+}
+
+.mailbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* ANA KART */
+
+.mailbox-card {
+    position: relative;
+
+    width: min(520px, 100%);
+    max-height: 78vh;
+
+    overflow-y: auto;
+
+    padding: 32px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 248, 251, 0.98),
+            rgba(255, 225, 238, 0.98)
+        );
+
+    border: 1px solid rgba(255,255,255,0.95);
+    border-radius: 26px;
+
+    box-shadow:
+        0 25px 80px rgba(80, 25, 50, 0.30);
+
+    color: #652943;
+
+    transform:
+        translateY(25px)
+        scale(0.94);
+
+    transition:
+        transform 0.4s cubic-bezier(.16,.84,.32,1);
+}
+
+.mailbox-modal.active .mailbox-card {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* ÜST BAŞLIK */
+
+.mailbox-header {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 14px;
+}
+
+.mailbox-header-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: rgba(118,47,80,0.08);
+
+    border-radius: 50%;
+
+    font-size: 24px;
+}
+
+.mailbox-small-title {
+    margin-bottom: 4px;
+
+    color: rgba(118,47,80,0.55);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.mailbox-header h2 {
+    margin: 0;
+
+    color: #71324f;
+
+    font-size: 26px;
+
+    text-shadow: none;
+}
+
+.mailbox-description {
+    margin: 0 0 24px !important;
+
+    max-width: none !important;
+
+    color: rgba(101,41,67,0.65) !important;
+
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+
+    text-align: left;
+}
+
+
+/* KAPATMA BUTONU */
+
+.mailbox-close {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 36px !important;
+    height: 36px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(118,47,80,0.08) !important;
+
+    border: 0 !important;
+    border-radius: 50% !important;
+
+    color: #762f50 !important;
+
+    box-shadow: none !important;
+
+    font-size: 22px !important;
+
+    cursor: pointer;
+}
+
+.mailbox-close:hover {
+    background: #762f50 !important;
+    color: white !important;
+
+    transform: rotate(90deg) !important;
+}
+
+
+/* MESAJLARIN GELECEĞİ ALAN */
+
+.mailbox-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+/* =========================================
+   BUGÜNÜN MESAJI
+========================================= */
+
+.daily-mail-card {
+    position: relative;
+
+    padding: 20px;
+
+    background: rgba(255,255,255,0.62);
+
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(100,30,65,0.08);
+}
+
+.daily-mail-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.daily-mail-label {
+    margin-bottom: 5px;
+
+    color: #a24f74;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+.daily-mail-date {
+    color: rgba(101,41,67,0.55);
+
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+}
+
+.daily-mail-status {
+    font-size: 22px;
+}
+
+
+/* MESAJ */
+
+.daily-mail-message {
+    color: #652943;
+
+    font-family: "Courier New", Courier, monospace;
+
+    font-size: 14px;
+    line-height: 1.8;
+
+    white-space: pre-wrap;
+}
+
+
+/* İMZA */
+
+.daily-mail-signature {
+    margin-top: 18px;
+
+    color: rgba(101,41,67,0.65);
+
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    font-style: italic;
+
+    text-align: right;
+}
+
+
+/* =========================================
+   POSTA KUTUSU BÖLÜM BAŞLIKLARI
+========================================= */
+
+.mailbox-section-title {
+    margin-top: 15px;
+    margin-bottom: 2px;
+
+    color: #71324f;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* =========================================
+   ESKİ MESAJLAR
+========================================= */
+
+.mailbox-history {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.mailbox-empty {
+    padding: 15px;
+
+    background: rgba(255,255,255,0.30);
+
+    border: 1px dashed rgba(118,47,80,0.18);
+    border-radius: 14px;
+
+    color: rgba(101,41,67,0.48);
+
+    font-size: 12px;
+    text-align: center;
+}
+
+
+/* =========================================
+   ESKİ MESAJ KARTI
+   Daha sonra JavaScript oluşturacak
+========================================= */
+
+.mailbox-history-item {
+    padding: 14px 16px;
+
+    background: rgba(255,255,255,0.38);
+
+    border: 1px solid rgba(255,255,255,0.75);
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.mailbox-history-item:hover {
+    transform: translateY(-2px);
+
+    background: rgba(255,255,255,0.58);
+}
+
+.mailbox-history-date {
+    margin-bottom: 5px;
+
+    color: rgba(118,47,80,0.48);
+
+    font-size: 10px;
+}
+
+.mailbox-history-preview {
+    color: #71324f;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   KİLİTLİ MEKTUPLAR
+========================================= */
+
+.locked-mails {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.locked-mail {
+    position: relative;
+    overflow: hidden;
+
+    padding: 17px 18px 17px 58px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.55),
+            rgba(255,225,238,0.55)
+        );
+
+    border: 1px solid rgba(118,47,80,0.14);
+    border-radius: 15px;
+
+    box-shadow:
+        0 6px 18px rgba(80,25,50,0.06);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* SOLDAKİ ZARF / KİLİT ALANI */
+
+.locked-mail::before {
+    content: "🔒";
+
+    position: absolute;
+
+    left: 16px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(118,47,80,0.08);
+
+    border-radius: 50%;
+
+    font-size: 15px;
+}
+
+
+/* TARİHİ GELEN MEKTUP */
+
+.locked-mail.unlocked::before {
+    content: "💌";
+
+    background: rgba(217,79,130,0.12);
+}
+
+
+/* KİLİTLİ BAŞLIK */
+
+.locked-mail-title {
+    color: #71324f;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+
+/* TARİH */
+
+.locked-mail-date {
+    margin-top: 5px;
+
+    color: rgba(101,41,67,0.50);
+
+    font-size: 10px;
+}
+
+
+/* AÇILABİLEN MEKTUP */
+
+.locked-mail.unlocked {
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.82),
+            rgba(255,218,233,0.72)
+        );
+
+    border-color: rgba(217,79,130,0.25);
+
+    box-shadow:
+        0 8px 25px rgba(80,25,50,0.10);
+}
+
+.locked-mail.unlocked:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(80,25,50,0.15);
+}
+
+
+/* =========================================
+   MEKTUBU AÇ YAZISI
+========================================= */
+
+.locked-mail-open {
+    margin-top: 8px;
+
+    color: #a24f74;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+}
+
+/* =========================================
+   AÇILAN KİLİTLİ MEKTUP
+========================================= */
+
+.letter-reader-modal {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(55, 20, 38, 0.62);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+
+    z-index: 10000000;
+}
+
+
+/* AÇIK HALİ */
+
+.letter-reader-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* MEKTUP */
+
+.letter-reader-card {
+    position: relative;
+
+    width: min(500px, 100%);
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    padding: 42px 38px 34px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffafc,
+            #ffe8f1
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.95);
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 30px 90px rgba(60,20,40,0.38);
+
+    color: #652943;
+
+    transform:
+        translateY(35px)
+        scale(0.90)
+        rotate(-2deg);
+
+    opacity: 0;
+
+    transition:
+        transform 0.45s cubic-bezier(.16,.84,.32,1),
+        opacity 0.35s ease;
+}
+
+
+/* AÇILMA ANİMASYONU */
+
+.letter-reader-modal.active
+.letter-reader-card {
+
+    transform:
+        translateY(0)
+        scale(1)
+        rotate(0deg);
+
+    opacity: 1;
+}
+
+
+/* MEKTUP İKONU */
+
+.letter-reader-icon {
+    margin-bottom: 10px;
+
+    font-size: 30px;
+
+    text-align: center;
+}
+
+
+/* KÜÇÜK ÜST YAZI */
+
+.letter-reader-small {
+    margin-bottom: 7px;
+
+    color: rgba(118,47,80,0.48);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-align: center;
+}
+
+
+/* BAŞLIK */
+
+.letter-reader-card h2 {
+    margin: 0;
+
+    color: #71324f;
+
+    font-size: 26px;
+
+    text-align: center;
+
+    text-shadow: none;
+}
+
+
+/* TARİH */
+
+.letter-reader-date {
+    margin-top: 8px;
+
+    color: rgba(101,41,67,0.48);
+
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+
+    text-align: center;
+}
+
+
+/* AYRAÇ */
+
+.letter-reader-line {
+    width: 55px;
+    height: 1px;
+
+    margin: 24px auto;
+
+    background:
+        rgba(118,47,80,0.25);
+}
+
+
+/* MEKTUP YAZISI */
+
+.letter-reader-message {
+    color: #652943;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    font-size: 14px;
+    line-height: 1.9;
+
+    white-space: pre-wrap;
+}
+
+
+/* İMZA */
+
+.letter-reader-signature {
+    margin-top: 28px;
+
+    color: rgba(101,41,67,0.65);
+
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    font-style: italic;
+
+    text-align: right;
+}
+
+
+/* KAPATMA BUTONU */
+
+.letter-reader-close {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 35px !important;
+    height: 35px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0 !important;
+    border-radius: 50% !important;
+
+    background:
+        rgba(118,47,80,0.08) !important;
+
+    color: #762f50 !important;
+
+    box-shadow: none !important;
+
+    font-size: 21px !important;
+
+    cursor: pointer;
+}
+
+.letter-reader-close:hover {
+    background: #762f50 !important;
+    color: white !important;
+
+    transform: rotate(90deg) !important;
+}
+
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+
+    .letter-reader-card {
+        padding:
+            38px
+            24px
+            28px;
+    }
+
+    .letter-reader-message {
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+}
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+
+    .mailbox-widget {
+        left: 10px;
+        bottom: 10px;
+    }
+
+    .mailbox-button {
+        width: 52px;
+        height: 52px;
+    }
+
+    .mailbox-icon {
+        font-size: 23px;
+    }
+}
+
+/* =========================================
+   GÜNLÜK SÜRPRİZ BUTONU
+========================================= */
+
+.daily-surprise-widget {
+    position: fixed;
+
+    left: 88px;
+    bottom: 20px;
+
+    z-index: 99999;
+}
+
+
+
+.daily-surprise-button {
+    position: relative;
+
+    width: 58px;
+    height: 58px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    border-radius: 50% !important;
+
+    background: rgba(255,255,255,0.88) !important;
+    color: #762f50 !important;
+
+    box-shadow:
+        0 8px 25px rgba(80,25,50,0.18) !important;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+.daily-surprise-button:hover {
+    transform: translateY(-4px) scale(1.05) !important;
+
+    box-shadow:
+        0 12px 32px rgba(80,25,50,0.25) !important;
+}
+
+.daily-surprise-icon {
+    font-size: 25px;
+    line-height: 1;
+}
+
+/* =========================================
+   GÜNLÜK SÜRPRİZ PENCERESİ
+========================================= */
+
+.daily-surprise-modal {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(45, 15, 30, 0.35);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+    z-index: 1000000;
+}
+
+.daily-surprise-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ANA KART */
+
+.daily-surprise-card {
+    position: relative;
+
+    width: min(430px, 100%);
+    padding: 38px 30px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.96),
+            rgba(255,226,239,0.94)
+        );
+
+    border: 1px solid rgba(255,255,255,0.95);
+    border-radius: 25px;
+
+    box-shadow:
+        0 25px 70px rgba(80,25,50,0.25);
+
+    text-align: center;
+
+    transform:
+        translateY(20px)
+        scale(0.96);
+
+    transition:
+        transform 0.35s ease;
+}
+
+.daily-surprise-modal.active .daily-surprise-card {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* KAPATMA BUTONU */
+
+.daily-surprise-close {
+    position: absolute;
+
+    top: 14px;
+    right: 16px;
+
+    width: 34px;
+    height: 34px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0 !important;
+    border-radius: 50% !important;
+
+    background: rgba(118,47,80,0.08) !important;
+    color: #762f50 !important;
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease !important;
+}
+
+.daily-surprise-close:hover {
+    transform: rotate(8deg) scale(1.08);
+
+    background:
+        rgba(118,47,80,0.14) !important;
+}
+
+
+/* BÜYÜK HEDİYE */
+
+.daily-surprise-big-icon {
+    margin-bottom: 10px;
+
+    font-size: 46px;
+
+    animation:
+        dailyGiftFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes dailyGiftFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-7px) rotate(3deg);
+    }
+}
+
+
+/* KÜÇÜK BAŞLIK */
+
+.daily-surprise-small-title {
+    margin-bottom: 8px;
+
+    color: #b05b82;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+/* BAŞLIK */
+
+.daily-surprise-card h2 {
+    margin: 0;
+
+    color: #71324f;
+
+    font-size: 23px;
+    line-height: 1.25;
+}
+
+
+/* AÇIKLAMA */
+
+.daily-surprise-description {
+    max-width: 330px;
+
+    margin:
+        13px auto 20px !important;
+
+    color:
+        rgba(101,41,67,0.67) !important;
+
+    font-size: 13px !important;
+    line-height: 1.65 !important;
+}
+
+
+/* SÜRPRİZİN ÇIKACAĞI ALAN */
+
+.daily-surprise-content {
+    min-height: 105px;
+
+    margin-bottom: 18px;
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(255,255,255,0.46);
+
+    border:
+        1px dashed rgba(118,47,80,0.20);
+
+    border-radius: 18px;
+
+    color: #71324f;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* KUTU İÇİNDEKİ HEDİYE */
+
+.daily-surprise-gift {
+    font-size: 38px;
+
+    animation:
+        dailyGiftShake 3s ease-in-out infinite;
+}
+
+@keyframes dailyGiftShake {
+
+    0%,
+    85%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    88% {
+        transform: rotate(-8deg);
+    }
+
+    91% {
+        transform: rotate(8deg);
+    }
+
+    94% {
+        transform: rotate(-5deg);
+    }
+
+    97% {
+        transform: rotate(5deg);
+    }
+}
+
+
+/* KUTUYU AÇ BUTONU */
+
+.daily-surprise-open-button {
+    width: 100%;
+
+    margin: 0 !important;
+    padding: 13px 20px !important;
+
+    border:
+        1px solid rgba(118,47,80,0.15) !important;
+
+    border-radius: 16px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a94f78,
+            #d96f9e
+        ) !important;
+
+    color: white !important;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(118,47,80,0.18) !important;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+.daily-surprise-open-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 26px rgba(118,47,80,0.25) !important;
+}
+
+
+/* ALT DURUM YAZISI */
+
+.daily-surprise-status {
+    min-height: 16px;
+
+    margin-top: 12px;
+
+    color:
+        rgba(101,41,67,0.55);
+
+    font-size: 10px;
+}
+
+/* =========================================
+   ŞANSINI DENE
+========================================= */
+
+.luck-widget {
+    position: fixed;
+    left: 156px;
+    bottom: 20px;
+    z-index: 99999;
+}
+
+.luck-button {
+    width: 58px;
+    height: 58px;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    border-radius: 50% !important;
+
+    background: rgba(255,255,255,0.88) !important;
+    color: #762f50 !important;
+
+    box-shadow: 0 8px 25px rgba(80,25,50,0.18) !important;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+.luck-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(80,25,50,0.25) !important;
+}
+
+.luck-icon {
+    font-size: 25px;
+}
+
+
+/* =========================================
+   ŞANSINI DENE PENCERESİ
+========================================= */
+
+.luck-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(70, 20, 45, 0.28);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.luck-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.luck-card {
+    position: relative;
+
+    width: min(440px, 100%);
+    padding: 34px 28px 28px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,0.85);
+    border-radius: 28px;
+
+    background: rgba(255, 245, 250, 0.96);
+
+    box-shadow: 0 25px 70px rgba(80,25,50,0.25);
+
+    color: #6f2d4b;
+
+    transform: translateY(18px) scale(0.96);
+
+    transition: transform 0.3s ease;
+}
+
+.luck-modal.active .luck-card {
+    transform: translateY(0) scale(1);
+}
+
+.luck-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+
+    width: 36px;
+    height: 36px;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none !important;
+    border-radius: 50% !important;
+
+    background: rgba(118,47,80,0.08) !important;
+    color: #762f50 !important;
+
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.luck-big-icon {
+    font-size: 54px;
+    margin-bottom: 10px;
+}
+
+.luck-small-title {
+    margin-bottom: 8px;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #b05a80;
+}
+
+.luck-card h2 {
+    margin-bottom: 10px;
+
+    font-size: 26px;
+    color: #762f50;
+}
+
+.luck-description {
+    margin: 0 auto 22px;
+
+    max-width: 340px;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    color: #89556c;
+}
+
+.luck-content {
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+    padding: 18px;
+
+    border-radius: 20px;
+
+    background: rgba(217,79,130,0.08);
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: #762f50;
+}
+
+.luck-placeholder {
+    font-size: 38px;
+    font-weight: 800;
+
+    opacity: 0.35;
+}
+
+.luck-try-button {
+    width: 100%;
+
+    margin: 0 !important;
+    padding: 14px 20px !important;
+
+    border: none !important;
+    border-radius: 18px !important;
+
+    background: #d94f82 !important;
+    color: white !important;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(217,79,130,0.25) !important;
+}
+
+.luck-try-button:hover {
+    transform: translateY(-2px);
+}
+
+.luck-try-button:disabled {
+    opacity: 0.55;
+    cursor: default;
+    transform: none;
+}
+
+.luck-status {
+    min-height: 18px;
+    margin-top: 13px;
+
+    font-size: 12px;
+    color: #a25a79;
+}
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+
+    .daily-surprise-widget {
+        left: 72px;
+        bottom: 10px;
+    }
+
+    .daily-surprise-button {
+        width: 52px;
+        height: 52px;
+    }
+
+    .daily-surprise-icon {
+        font-size: 23px;
+    }
+
+.luck-widget {
+    left: 134px;
+    bottom: 10px;
+}
+
+.luck-button {
+    width: 52px;
+    height: 52px;
+}
+
+.luck-icon {
+    font-size: 23px;
+}
+
+.luck-card {
+    padding: 32px 20px 24px;
+}
+}
+
+
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+
+    .mood-container {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+    }
+
+    .mood-card {
+        min-height: 92px;
+        padding: 13px 8px !important;
+    }
+
+    .mood-card span {
+        font-size: 26px;
+    }
+
+    .mood-card strong {
+        font-size: 12px;
+    }
+
+    .mood-result {
+        padding: 24px 18px;
+    }
+}
+
+/* =========================================
+   GECE MODU
+========================================= */
+
+body.night-mode {
+    background:
+        radial-gradient(circle at top, #32142d 0%, #1d1020 45%, #100a13 100%);
+}
+
+body.night-mode .screen {
+    background:
+        radial-gradient(circle at top, rgba(104, 45, 91, 0.35), transparent 55%),
+        linear-gradient(180deg, #2b1528 0%, #160d19 100%);
+}
+
+body.night-mode .card {
+    background: rgba(45, 24, 42, 0.82);
+    border-color: rgba(255, 190, 220, 0.18);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
+}
+
+body.night-mode h1,
+body.night-mode h2,
+body.night-mode h3 {
+    color: #ffd9ea;
+}
+
+body.night-mode p {
+    color: #edcddd;
+}
+
+/* =========================================
+   GECE YILDIZLARI
+========================================= */
+
+.night-sky {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s ease;
+}
+
+body.night-mode .night-sky {
+    opacity: 1;
+    visibility: visible;
+}
+
+.night-star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 7px rgba(255, 220, 240, 0.8);
+    animation: nightStarTwinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes nightStarTwinkle {
+    0% {
+        opacity: 0.15;
+        transform: scale(0.7);
+    }
+
+    100% {
+        opacity: 0.9;
+        transform: scale(1.25);
+    }
+}
+
+/* =========================================
+   KAYAN YILDIZ
+========================================= */
+
+.shooting-star {
+    position: absolute;
+    top: -10%;
+    left: -20%;
+
+    width: 120px;
+    height: 2px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0.95)
+    );
+
+    filter: drop-shadow(0 0 6px rgba(255,220,240,0.9));
+
+    transform: rotate(-35deg);
+
+    opacity: 0;
+
+    animation: shootingStarMove 1.4s ease-out forwards;
+}
+
+@keyframes shootingStarMove {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(-35deg);
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(120vw, 80vh) rotate(-35deg);
+    }
+}
+
+/* =========================================
+   GECE EASTER EGG
+========================================= */
+
+.night-secret {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    z-index: 99998;
+
+    width: 38px;
+    height: 38px;
+    padding: 0 !important;
+    margin: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none !important;
+    border-radius: 50% !important;
+
+    background: rgba(255, 255, 255, 0.06) !important;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    filter: grayscale(0.25);
+
+    transition:
+        opacity 1.5s ease,
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* SADECE GECE GÖRÜNSÜN */
+
+body.night-mode .night-secret {
+    opacity: 0.38;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* FARK EDİP ÜZERİNE GELİRSE */
+
+body.night-mode .night-secret:hover {
+    opacity: 1;
+    transform: scale(1.12) rotate(-8deg);
+
+    background: rgba(255, 220, 240, 0.12) !important;
+}
+
+
+/* =========================================
+   GECE SIRRI PENCERESİ
+========================================= */
+
+.night-secret-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000001;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(10, 5, 15, 0.62);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+}
+
+.night-secret-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.night-secret-card {
+    position: relative;
+
+    width: min(430px, 100%);
+
+    padding: 38px 30px 32px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255, 210, 235, 0.20);
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(105, 55, 100, 0.95),
+            rgba(31, 17, 34, 0.98)
+        );
+
+    color: #f8deeb;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.45);
+
+    transform: translateY(18px) scale(0.96);
+
+    transition: transform 0.35s ease;
+}
+
+.night-secret-modal.active .night-secret-card {
+    transform: translateY(0) scale(1);
+}
+
+.night-secret-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+
+    width: 36px;
+    height: 36px;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none !important;
+    border-radius: 50% !important;
+
+    background: rgba(255,255,255,0.08) !important;
+    color: #f8deeb !important;
+
+    font-size: 24px;
+
+    cursor: pointer;
+}
+
+.night-secret-moon {
+    margin-bottom: 12px;
+
+    font-size: 48px;
+
+    filter: drop-shadow(0 0 15px rgba(255,220,240,0.30));
+}
+
+.night-secret-label {
+    margin-bottom: 8px;
+
+    color: #d9a7c2;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.night-secret-card h2 {
+    margin-bottom: 16px;
+
+    color: #ffe5f1 !important;
+
+    font-size: 25px;
+}
+
+.night-secret-card p {
+    margin: 0;
+
+    color: #e7c9d9 !important;
+
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.night-secret-card strong {
+    color: #ffffff;
+}
+
+/* =========================================
+   BUGÜN GEÇMİŞTE
+========================================= */
+
+.memory-today-widget {
+    position: fixed;
+    left: 224px;
+    bottom: 20px;
+    z-index: 99999;
+
+    display: none;
+}
+
+.memory-today-widget.active {
+    display: block;
+}
+
+.memory-today-button {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    border-radius: 50% !important;
+
+    background: rgba(255,255,255,0.88) !important;
+
+    box-shadow: 0 8px 25px rgba(80,25,50,0.18) !important;
+
+    font-size: 24px;
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease !important;
+}
+
+.memory-today-button:hover {
+    transform: translateY(-3px) scale(1.05);
+
+    box-shadow:
+        0 12px 30px rgba(80,25,50,0.25) !important;
+}
+
+
+/* PENCERE */
+
+.memory-today-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000001;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(70,20,45,0.30);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.memory-today-modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.memory-today-card {
+    position: relative;
+
+    width: min(440px, 100%);
+    padding: 36px 28px 30px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,0.85);
+    border-radius: 28px;
+
+    background: rgba(255,245,250,0.97);
+
+    color: #762f50;
+
+    box-shadow:
+        0 25px 70px rgba(80,25,50,0.25);
+
+    transform: translateY(18px) scale(0.96);
+
+    transition: transform 0.3s ease;
+}
+
+.memory-today-modal.active .memory-today-card {
+    transform: translateY(0) scale(1);
+}
+
+.memory-today-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+
+    width: 36px;
+    height: 36px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none !important;
+    border-radius: 50% !important;
+
+    background: rgba(118,47,80,0.08) !important;
+    color: #762f50 !important;
+
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.memory-today-icon {
+    margin-bottom: 10px;
+    font-size: 48px;
+}
+
+.memory-today-label {
+    margin-bottom: 8px;
+
+    color: #b05a80;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+}
+
+.memory-today-card h2 {
+    margin-bottom: 6px;
+
+    color: #762f50;
+
+    font-size: 25px;
+}
+
+.memory-today-date {
+    margin-bottom: 18px;
+
+    color: #b05a80;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.memory-today-card p {
+    margin: 0;
+
+    color: #89556c;
+
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.memory-today-photo {
+    display: none;
+
+    margin-top: 20px;
+
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.memory-today-photo img {
+    display: block;
+
+    width: 100%;
+    max-height: 230px;
+
+    object-fit: cover;
+}
 
 /* =========================
    MÜZİK ÇALAR
@@ -7641,9 +9663,85 @@ body.story-stage-4 {
 }
 
 </style>
+
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9fe119d4-dbe6-4d0d-a491-ccc27c13827a"></script>
+
 </head>
 
 <body>
+
+   <!-- =========================================
+     GECE YILDIZLARI
+========================================= -->
+
+<div class="night-sky" id="nightSky"></div> 
+
+<!-- =========================================
+     GECE EASTER EGG
+========================================= -->
+
+<button
+    class="night-secret"
+    id="nightSecret"
+    type="button"
+    onclick="openNightSecret()"
+    aria-label="Gece sırrı"
+>
+    🌙
+</button>
+
+<div class="night-secret-modal" id="nightSecretModal">
+
+    <div class="night-secret-card">
+
+        <button
+            class="night-secret-close"
+            type="button"
+            onclick="closeNightSecret()"
+            aria-label="Kapat"
+        >
+            ×
+        </button>
+
+        <div class="night-secret-moon">🌙</div>
+
+        <div class="night-secret-label">
+            GECEYE ÖZEL
+        </div>
+
+        <h2>Bir şey buldun.</h2>
+
+        <p>
+            Bunu gündüz göremezdin.
+            <br><br>
+            Bu saatte hâlâ buradaysan ya siteyi fazla kurcalıyorsun
+            ya da uyku düzenin benimki kadar kötü. :D
+            <br><br>
+            Neyse, bulduğuna göre ödülün şu olsun:
+            <br><br>
+            <strong>En karanlık gecede bile yıldızlar parlamaya devam eder.</strong>
+        </p>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     BUGÜN GEÇMİŞTE
+========================================= -->
+
+<div class="memory-today-widget" id="memoryTodayWidget">
+    <button
+        class="memory-today-button"
+        type="button"
+        onclick="openTodayMemory()"
+        aria-label="Bugün geçmişte"
+    >
+        🗓️
+    </button>
+</div>
+
+
 
     <!-- =========================================
      İLK GİRİŞ - KULLANIM KILAVUZU
@@ -7794,7 +9892,326 @@ body.story-stage-4 {
 
 </div>
 
+<!-- =========================================
+     MESAJ KUTUSU
+========================================= -->
 
+<div class="mailbox-widget" id="mailboxWidget">
+
+  <button
+    class="mailbox-button"
+    id="mailboxButton"
+    type="button"
+    onclick="openMailbox()"
+    aria-label="Mesaj kutusunu aç"
+>
+        <span class="mailbox-icon">💌</span>
+
+        <span class="mailbox-badge" id="mailboxBadge">
+            1
+        </span>
+    </button>
+
+</div>
+
+<div class="daily-surprise-widget" id="dailySurpriseWidget">
+    <button
+        class="daily-surprise-button"
+        id="dailySurpriseButton"
+        type="button"
+        onclick="openDailySurprise()"
+        aria-label="Günlük sürprizi aç"
+    >
+        <span class="daily-surprise-icon">🎁</span>
+    </button>
+</div>
+
+<!-- GÜNLÜK SÜRPRİZ PENCERESİ -->
+
+<div class="daily-surprise-modal" id="dailySurpriseModal">
+
+    <div class="daily-surprise-card">
+
+        <button
+            class="daily-surprise-close"
+            type="button"
+            onclick="closeDailySurprise()"
+            aria-label="Kapat"
+        >
+            ×
+        </button>
+
+        <div class="daily-surprise-big-icon">
+            🎁
+        </div>
+
+        <div class="daily-surprise-small-title">
+            GÜNÜN SÜRPRİZİ
+        </div>
+
+        <h2 id="dailySurpriseTitle">
+            Bugünkü kutun seni bekliyor
+        </h2>
+
+        <p class="daily-surprise-description" id="dailySurpriseDescription">
+            Her gün burada yalnızca bir kutu açabilirsin.
+            İçinden ne çıkacağını ben de söylemeyeceğim.
+        </p>
+
+        <div class="daily-surprise-content" id="dailySurpriseContent">
+            <div class="daily-surprise-gift">🎁</div>
+        </div>
+
+        <button
+            class="daily-surprise-open-button"
+            id="dailySurpriseOpenButton"
+            type="button"
+            onclick="revealDailySurprise()"
+        >
+            Kutuyu aç
+        </button>
+
+        <div
+            class="daily-surprise-status"
+            id="dailySurpriseStatus"
+        ></div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     ŞANSINI DENE
+========================================= -->
+
+<div class="luck-widget" id="luckWidget">
+
+    <button
+        class="luck-button"
+        id="luckButton"
+        type="button"
+        onclick="openLuckGame()"
+        aria-label="Şansını dene"
+    >
+        <span class="luck-icon">🎰</span>
+    </button>
+
+</div>
+<!-- =========================================
+     ŞANSINI DENE PENCERESİ
+========================================= -->
+
+<div class="luck-modal" id="luckModal">
+
+    <div class="luck-card">
+
+        <button
+            class="luck-close"
+            type="button"
+            onclick="closeLuckGame()"
+            aria-label="Kapat"
+        >
+            ×
+        </button>
+
+        <div class="luck-big-icon">
+            🎰
+        </div>
+
+        <div class="luck-small-title">
+            GÜNLÜK ŞANS HAKKI
+        </div>
+
+        <h2 id="luckTitle">
+            Bugün şansın ne diyor?
+        </h2>
+
+        <p class="luck-description" id="luckDescription">
+            Günde yalnızca bir kez deneyebilirsin.
+            Çıkacak şey konusunda hiçbir garanti vermiyorum. :D
+        </p>
+
+        <div class="luck-content" id="luckContent">
+
+            <div class="luck-placeholder">
+                ?
+            </div>
+
+        </div>
+
+        <button
+            class="luck-try-button"
+            id="luckTryButton"
+            type="button"
+            onclick="tryLuck()"
+        >
+            🎰 Şansımı dene
+        </button>
+
+        <div
+            class="luck-status"
+            id="luckStatus"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- POSTA KUTUSU PENCERESİ -->
+
+<div class="mailbox-modal" id="mailboxModal">
+
+    <div class="mailbox-card">
+
+        <button
+            class="mailbox-close"
+            type="button"
+            onclick="closeMailbox()"
+            aria-label="Kapat"
+        >
+            ×
+        </button>
+
+        <div class="mailbox-header">
+
+            <div class="mailbox-header-icon">
+                💌
+            </div>
+
+            <div>
+                <div class="mailbox-small-title">
+                    SİTE SAHİBİNİN POSTA KUTUSU
+                </div>
+
+                <h2>Mesajların</h2>
+            </div>
+
+        </div>
+
+        <p class="mailbox-description">
+            Bazı mesajlar hemen açılır.
+            Bazılarıysa doğru zamanı bekler.
+        </p>
+
+        <div class="mailbox-list" id="mailboxList">
+
+    <!-- BUGÜNÜN MESAJI -->
+
+    <div class="daily-mail-card">
+
+        <div class="daily-mail-top">
+
+            <div>
+                <div class="daily-mail-label" id="dailyMailLabel">
+                    BUGÜNÜN MESAJI
+                </div>
+
+                <div class="daily-mail-date" id="dailyMailDate">
+                    ...
+                </div>
+            </div>
+
+            <span class="daily-mail-status">
+                💌
+            </span>
+
+        </div>
+
+        <div class="daily-mail-message" id="dailyMailMessage">
+            Mesaj hazırlanıyor...
+        </div>
+
+        <div class="daily-mail-signature">
+            — Kazım
+        </div>
+
+    </div>
+
+
+    <!-- ESKİ MESAJLAR -->
+
+    <div class="mailbox-section-title">
+        📬 Son keşfedilen Mesajlar
+    </div>
+
+    <div
+        class="mailbox-history"
+        id="mailboxHistory"
+    >
+        <div class="mailbox-empty">
+            Henüz eski bir mesaj yok.
+        </div>
+    </div>
+
+
+    <!-- KİLİTLİ MEKTUPLAR -->
+
+    <div class="mailbox-section-title">
+        🔒 Kilitli Mektuplar
+    </div>
+
+    <div
+        class="locked-mails"
+        id="lockedMails"
+    >
+        <!-- Bunları daha sonra ekleyeceğiz -->
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     AÇILAN KİLİTLİ MEKTUP
+========================================= -->
+
+<div class="letter-reader-modal" id="letterReaderModal">
+
+    <div class="letter-reader-card">
+
+        <button
+            class="letter-reader-close"
+            type="button"
+            onclick="closeLockedLetter()"
+            aria-label="Mektubu kapat"
+        >
+            ×
+        </button>
+
+        <div class="letter-reader-icon">
+            💌
+        </div>
+
+        <div class="letter-reader-small">
+            ZAMANI GELEN BİR MEKTUP
+        </div>
+
+        <h2 id="letterReaderTitle">
+            Mektup
+        </h2>
+
+        <div
+            class="letter-reader-date"
+            id="letterReaderDate"
+        ></div>
+
+        <div class="letter-reader-line"></div>
+
+        <div
+            class="letter-reader-message"
+            id="letterReaderMessage"
+        ></div>
+
+        <div class="letter-reader-signature">
+            — Kazım
+        </div>
+
+    </div>
+
+</div>
 
     <!-- MÜZİK ÇALAR -->
 
@@ -8634,6 +11051,8 @@ body.story-stage-4 {
 
 </section>
 
+
+
 <!-- 7 FINAL -->
 <section class="screen final" id="screen7">
 
@@ -8913,7 +11332,7 @@ body.story-stage-4 {
 // GECE MESAJI
 function checkLateNightMessage() {
 
-   const hour = new Date().getHours();
+   const hour = 14;
 
     let message = "";
 
@@ -10529,7 +12948,27 @@ const playlist = [
         title: "Giydirme Bana Sanbenito",
         artist: "",
         file: "https://madeforz.github.io/birhday-music/Giydirme%20Bana%20Sanbenito.mp3"
-    }
+    },
+{
+    title: "505",
+    artist: "Arctic Monkeys",
+    file: "https://madeforz.github.io/birhday-music/505.mp3"
+},
+{
+    title: "Koca Bir Saçmalık",
+    artist: "Jakuzi",
+    file: "https://madeforz.github.io/birhday-music/Jakuzi%20-%20Koca%20Bir%20Sa%C3%A7mal%C4%B1k%20(Official%20Video).mp3"
+},
+{
+    title: "In My Head",
+    artist: "Bedroom",
+    file: "https://madeforz.github.io/birhday-music/Bedroom%20-%20In%20My%20Head%20(Official%20Audio).mp3"
+},
+{
+    title: "Homage",
+    artist: "Mild High Club",
+    file: "https://madeforz.github.io/birhday-music/Mild%20High%20Club%20-%20Homage.mp3"
+}
 ];
 
 let currentSongIndex = 0;
@@ -10989,7 +13428,9 @@ function toggleMusicPlayer() {
 
 
 /* İLK ŞARKIYI HAZIRLA */
-loadSong(0);
+const randomStartSong = Math.floor(Math.random() * playlist.length);
+currentSong = randomStartSong;
+loadSong(randomStartSong);
 
 /* =========================================
    SCREEN 3 - HARFLERİN TOPLANMA ANİMASYONU
@@ -13815,6 +16256,1515 @@ function finishKazimQuiz() {
     next(6);
 }
 
+/* =========================================
+   MESAJ KUTUSU
+========================================= */
+
+function openMailbox() {
+    const mailbox = document.getElementById("mailboxModal");
+
+    if (!mailbox) return;
+
+    mailbox.classList.add("active");
+}
+
+
+function closeMailbox() {
+    const mailbox = document.getElementById("mailboxModal");
+
+    if (!mailbox) return;
+
+    mailbox.classList.remove("active");
+}
+
+/* =========================================
+   GÜNLÜK SÜRPRİZLER
+========================================= */
+
+const dailySurprises = [
+
+    {
+        title: "Bugünün küçük hatırlatması",
+        message: "Bugün kendine gereksiz yere yüklenme. Bunu motivasyon sözü olarak değil, site sahibinin resmi kararı olarak kabul edebilirsin."
+    },
+
+    {
+        title: "Kazım'dan gereksiz bilgi",
+        message: "Bu kutuyu açmak için harcadığın birkaç saniyeyi artık geri alamazsın. Umarım değmiştir Zümrüt. :D"
+    },
+
+    {
+        title: "Bugünkü görev",
+        message: "Bugün hoşuna giden bir şarkıyı en az bir kere baştan sona dinle. Arka planda değil, gerçekten dinle."
+    },
+
+    {
+        title: "Resmî karar",
+        message: "Yapılan değerlendirmeler sonucunda bugün kendine en az bir küçük iyilik yapmana karar verilmiştir. İtiraz hakkın bulunmamaktadır."
+    },
+
+    {
+        title: "Küçük bir teşekkür",
+        message: "Bu siteye bugün de uğradığın için teşekkür ederim. Buraya koyduğum şeylerin gerçekten biri tarafından keşfediliyor olması güzel."
+    },
+
+    {
+        title: "Bugünün saçmalığı",
+        message: "Telefonunu eline alıp ne yapacağını unutup sonra hiçbir şey olmamış gibi başka uygulamaya geçtiysen yalnız değilsin."
+    },
+
+    {
+        title: "Şanslı kutu",
+        message: "Bugün kutudan özel bir şey çıkmadı. Ama 'Şanslı kutu' yazınca daha önemliymiş gibi duruyor. Pazarlama böyle bir şey."
+    },
+
+    {
+        title: "Bugünlük bu kadar",
+        message: "Buraya çok anlamlı bir şey yazabilirdim ama her gün duygusal olursak sitenin itibarı zedelenir. Bugün sadece selam vermeye geldim."
+    },
+
+    {
+        title: "Minik görev",
+        message: "Bugün uzun zamandır dinlemediğin bir şarkıyı aç. Hangisi olduğu tamamen sana kalmış."
+    },
+
+    {
+        title: "Nadir bulunan ciddi mesaj",
+        message: "Hayatın ne tarafa gideceğini her zaman bilmiyoruz. Ama yıllar sonra bugünleri hatırladığımızda güzel şeylerin sayısının daha fazla olmasını umuyorum."
+    }
+
+];
+
+/* =========================================
+   GÜNLÜK SÜRPRİZ PENCERESİ
+========================================= */
+
+function openDailySurprise() {
+
+    const modal =
+        document.getElementById("dailySurpriseModal");
+
+    const title =
+        document.getElementById("dailySurpriseTitle");
+
+    const description =
+        document.getElementById("dailySurpriseDescription");
+
+    const content =
+        document.getElementById("dailySurpriseContent");
+
+    const button =
+        document.getElementById("dailySurpriseOpenButton");
+
+    const status =
+        document.getElementById("dailySurpriseStatus");
+
+    if (!modal) return;
+
+    const todayKey =
+        getDailyMailDateKey();
+
+    const lastOpened =
+        localStorage.getItem("zumrutDailySurpriseOpened");
+
+
+    /* BUGÜNKÜ KUTU DAHA ÖNCE AÇILMIŞ */
+
+    if (lastOpened === todayKey) {
+
+        if (title) {
+            title.textContent =
+                "Bugünkü kutu açıldı";
+        }
+
+        if (description) {
+            description.textContent =
+                "Bugünlük başka sürpriz yok.";
+        }
+
+        if (content) {
+            content.innerHTML = `
+                <div>
+                    🔒<br><br>
+                    Bugünkü sürpriz hakkını kullandın.<br>
+                    Yarın yeni bir kutu seni bekliyor.
+                </div>
+            `;
+        }
+
+        if (button) {
+            button.textContent =
+                "Yarın tekrar gel";
+
+            button.disabled = true;
+        }
+
+        if (status) {
+            status.textContent =
+                "Yeni kutu gece 00:00'dan sonra açılabilir.";
+        }
+
+    }
+
+
+    /* BUGÜNKÜ KUTU HENÜZ AÇILMAMIŞ */
+
+    else {
+
+        if (title) {
+            title.textContent =
+                "Bugünkü kutun seni bekliyor";
+        }
+
+        if (description) {
+            description.textContent =
+                "Her gün burada yalnızca bir kutu açabilirsin. İçinden ne çıkacağını ben de söylemeyeceğim.";
+        }
+
+        if (content) {
+            content.innerHTML = `
+                <div class="daily-surprise-gift">
+                    🎁
+                </div>
+            `;
+        }
+
+        if (button) {
+            button.textContent =
+                "Kutuyu aç";
+
+            button.disabled = false;
+        }
+
+        if (status) {
+            status.textContent = "";
+        }
+
+    }
+
+
+    modal.classList.add("active");
+}
+
+function revealDailySurprise() {
+
+    const title =
+        document.getElementById("dailySurpriseTitle");
+
+    const description =
+        document.getElementById("dailySurpriseDescription");
+
+    const content =
+        document.getElementById("dailySurpriseContent");
+
+    const button =
+        document.getElementById("dailySurpriseOpenButton");
+
+    const status =
+        document.getElementById("dailySurpriseStatus");
+
+    if (!title || !description || !content || !button) {
+        return;
+    }
+
+    const todayKey =
+        getDailyMailDateKey();
+
+    const lastOpened =
+        localStorage.getItem("zumrutDailySurpriseOpened");
+
+    /* BUGÜN ZATEN AÇILDIYSA */
+
+    if (lastOpened === todayKey) {
+
+        title.textContent =
+            "Bugünkü hakkını kullandın";
+
+        description.textContent =
+            "Aynı gün içinde ikinci kutu yok.";
+
+        content.innerHTML = `
+            <div>
+                🔒<br><br>
+                Yeni bir sürpriz için yarını bekle.
+            </div>
+        `;
+
+        button.textContent =
+            "Yarın tekrar gel";
+
+        button.disabled = true;
+
+        if (status) {
+            status.textContent =
+                "Yeni kutu gece 00:00'dan sonra açılabilir.";
+        }
+
+        return;
+    }
+
+
+    /* BUGÜNÜN SÜRPRİZİNİ SEÇ */
+
+    const number =
+        getDailyMailNumber(
+            todayKey + "-surprise"
+        );
+
+    const surprise =
+        dailySurprises[
+            number % dailySurprises.length
+        ];
+
+
+    /* SÜRPRİZİ GÖSTER */
+
+    title.textContent =
+        surprise.title;
+
+    description.textContent =
+        "Bugünkü kutudan çıkan:";
+
+    content.innerHTML = `
+        <div>
+            ${surprise.message}
+        </div>
+    `;
+
+
+    /* BUGÜNKÜ HAKKI KULLANILDI OLARAK KAYDET */
+
+    localStorage.setItem(
+        "zumrutDailySurpriseOpened",
+        todayKey
+    );
+
+
+    button.textContent =
+        "Sürpriz açıldı";
+
+    button.disabled = true;
+
+    if (status) {
+        status.textContent =
+            "Yarın burada yeni bir kutu olacak.";
+    }
+}
+
+function closeDailySurprise() {
+
+    const modal =
+        document.getElementById("dailySurpriseModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+}
+
+/* =========================================
+   ŞANSINI DENE
+========================================= */
+
+function openLuckGame() {
+    const modal = document.getElementById("luckModal");
+    const content = document.getElementById("luckContent");
+    const button = document.getElementById("luckTryButton");
+    const status = document.getElementById("luckStatus");
+
+    if (!modal || !content || !button || !status) return;
+
+    const todayKey = getLuckDateKey();
+    const usedDate = localStorage.getItem("zumrutLuckUsed");
+
+    if (usedDate === todayKey) {
+
+        content.innerHTML = `
+            <div>
+                Eyvah... Mesajı tekrar görmek için sayfayı yenilediysen kötü haber.<br><br>
+                Gün devredene kadar o mesajı bir daha göremezsin. :D
+            </div>
+        `;
+
+        button.textContent = "🔒 Yarın tekrar dene";
+        button.disabled = true;
+
+        status.textContent = "Bugünkü şans hakkını zaten kullandın.";
+
+    } else {
+
+        content.innerHTML = `
+            <div class="luck-placeholder">?</div>
+        `;
+
+        button.textContent = "🎰 Şansımı dene";
+        button.disabled = false;
+
+        status.textContent = "";
+    }
+
+    modal.classList.add("active");
+}
+
+function closeLuckGame() {
+    const modal = document.getElementById("luckModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+}
+
+
+const luckMessages = [
+    {
+        type: "normal",
+        message: "Bugünkü şansın: Telefonu eline alıp neden aldığını unutma ihtimalin %97. Geçmiş olsun."
+    },
+    {
+        type: "normal",
+        message: "Bugün evren senin yanında. Ama çok güvenme, evrenin sicili pek temiz değil."
+    },
+    {
+        type: "normal",
+        message: "Bugünkü büyük kehanet: Bir şey yiyeceksin. Bu sitenin tahmin gücü gerçekten korkutucu."
+    },
+    {
+        type: "normal",
+        message: "Şans çarkı döndü ve sana hiçbir şey vermedi. Sistem gayet sağlıklı çalışıyor."
+    },
+    {
+        type: "normal",
+        message: "Bugün çok önemli bir karar vereceksin. Muhtemelen ne yiyeceğine karar vermek olacak."
+    },
+    {
+        type: "normal",
+        message: "Tebrikler! Bugünün ödülü: Bu yazıyı okuyabilme ayrıcalığı. Rica ederim."
+    },
+    {
+        type: "normal",
+        message: "Bugünkü şans seviyen ölçüldü. Sonuçları açıklamamızın hukuken sakıncalı olduğuna karar verdik."
+    },
+    {
+        type: "normal",
+        message: "Bugün beklemediğin bir şey olacak. Ne olduğunu bilmiyorum. Ben sadece JavaScript'im."
+    },
+    {
+        type: "normal",
+        message: "Şansını denedin. Şans da seni denedi. Şimdilik berabere."
+    },
+    {
+        type: "normal",
+        message: "Bugün yıldızlar senin için hizalanmış. Hangileri bilmiyorum, astronom değilim."
+    },
+    {
+        type: "normal",
+        message: "Üstün hesaplamalarıma göre bugün hayatta kalma ihtimalin oldukça yüksek. Güzel haber."
+    },
+    {
+        type: "normal",
+        message: "Bugün birinin sana kahve ısmarlaması gerekiyor. Bu mesajı kanıt olarak kullanabilirsin."
+    },
+
+    /* NADİR SONUÇLAR */
+
+    {
+        type: "special",
+        message: "NADİR SONUÇ ✨ Bugün sistem sana torpil geçti. Bu mesajın çıkma ihtimali diğerlerinden çok daha düşük. Git Kazım'a göster, belki bir işe yarar. :D"
+    },
+    {
+        type: "special",
+        message: "JACKPOT 🎰 Görünüşe göre bugün sitenin favori ziyaretçisi sensin. Gerçi sitenin başka ziyaretçisi olmaması bu başarıyı biraz gölgeliyor."
+    }
+];
+
+function getLuckDateKey() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+function tryLuck() {
+    const content = document.getElementById("luckContent");
+    const button = document.getElementById("luckTryButton");
+    const status = document.getElementById("luckStatus");
+
+    if (!content || !button || !status) return;
+
+    const todayKey = getLuckDateKey();
+    const usedDate = localStorage.getItem("zumrutLuckUsed");
+
+    if (usedDate === todayKey) {
+        content.innerHTML = `
+            <div>
+                Eyvah... Mesajı tekrar görmek için sayfayı yenilediysen kötü haber.<br><br>
+                Gün devredene kadar yeni mesajı bir daha göremezsin. Eski mesajı da artık masmaalesef göremezsin. :D
+            </div>
+        `;
+
+        button.textContent = "🔒 Yarın tekrar dene";
+        button.disabled = true;
+        status.textContent = "Bugünkü şans hakkını zaten kullandın.";
+        return;
+    }
+
+    let selectedMessage;
+
+    /*
+       %90 normal sonuç
+       %10 nadir sonuç
+    */
+
+    const isSpecial = Math.random() < 0.10;
+
+    const availableMessages = luckMessages.filter(message =>
+        message.type === (isSpecial ? "special" : "normal")
+    );
+
+    selectedMessage =
+        availableMessages[
+            Math.floor(Math.random() * availableMessages.length)
+        ];
+
+    localStorage.setItem("zumrutLuckUsed", todayKey);
+
+    content.innerHTML = `
+        <div>${selectedMessage.message}</div>
+    `;
+
+    button.textContent = "🔒 Yarın tekrar dene";
+    button.disabled = true;
+
+    status.textContent = isSpecial
+        ? "Bu bayağı nadir denk geldi."
+        : "Bugünkü hakkın kullanıldı.";
+}
+
+/* KARANLIK ALANA BASINCA KAPAT */
+
+document
+    .getElementById("dailySurpriseModal")
+    ?.addEventListener("click", function(event) {
+
+        if (event.target === this) {
+            closeDailySurprise();
+        }
+
+    });
+
+
+/* Karanlık alana basınca kapat */
+
+document.getElementById("mailboxModal")?.addEventListener("click", function(event) {
+
+    if (event.target === this) {
+        closeMailbox();
+    }
+
+});
+
+
+/* ESC ile kapat */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        closeMailbox();
+    }
+
+});
+
+/* =========================================
+   GÜNLÜK POSTA SİSTEMİ
+========================================= */
+
+/* =========================================
+   GÜNLÜK MESAJ HAVUZLARI
+========================================= */
+
+const dailyMailMessages = {
+
+    normal: [
+        "Bugün buraya uğradığına göre sana küçük bir şey bırakmam gerekiyordu. Çok da anlam yükleme, posta kutusunun görevi bu. :D",
+
+        "Bugünün mesajını almaya hak kazandın. Günün nasıl geçiyor bilmiyorum ama umarım bugün yüzünü güldüren en az bir şey olmuştur.",
+
+        "Buraya kadar gelip posta kutusuna da baktığına göre merak seviyen hâlâ gayet yerinde. Bunu olumlu bir özellik olarak sayıyorum.",
+
+        "Bugün için büyük bir cümlem yok. Sadece kendine gereğinden fazla yüklenmediğinden emin ol.",
+
+        "Bugünün postası teslim edildi. İçinden çok önemli bir şey çıkmadı ama sonuçta bedavaydı. :D"
+    ],
+
+
+    morning: [
+        "Günaydın. Günün nasıl geçeceğini henüz bilmiyoruz ama en azından posta kutunu kontrol ederek başladın. Fena başlangıç değil.",
+
+        "Sabah sabah buraya da baktıysan gerçekten meraklısın. Neyse, günaydın Zümrüt. Umarım güzel bir gün olur.",
+
+        "Yeni gün, yeni mesaj. Önce kendine gel, sonra dünyayla uğraşırsın. Acelemiz yok."
+    ],
+
+
+    evening: [
+        "Günün büyük kısmı bitti. Bugün güzel geçtiyse ne güzel. Saçma geçtiyse de dosyayı kapatıp yarına geçiyoruz.",
+
+        "Akşam postası geldi. Bugünün bütün saçmalıklarını birkaç saatliğine bir kenara bırakma vakti.",
+
+        "Günün sonlarına yaklaşırken buraya uğramışsın. Umarım bugün hatırlamaya değer küçük de olsa güzel bir şey olmuştur."
+    ],
+
+
+    night: [
+        "Bu saatte hâlâ buradaysan ya uyku tutmadı ya da yine gereksiz şeylere dalıp gittin. İkincisi daha olası geliyor. :D",
+
+        "Gece postası biraz daha sessiz gelir. Bugün kafanı yoran ne varsa sabaha kadar biraz hafiflemiş olsun.",
+
+        "Saat geç olmuş. Postanı aldın, şimdi telefonu bırakıp uyuman gerektiğini söylemem gerekiyor sanırım. Dinleyeceğini düşünmüyorum ama görevimi yaptım.",
+
+        "Gece olunca insanın kafası gereğinden fazla konuşuyor. Her söylediğine inanma. Sabah bazı şeyler daha küçük görünüyor."
+    ],
+
+
+    weekend: [
+        "Hafta sonu postası. Bugün mümkünse hiçbir şeyi gereğinden fazla ciddiye alma.",
+
+        "Bugün hafta sonu. Yapman gereken önemli bir şey yoksa kendine biraz boş boş durma hakkı ver.",
+
+        "Hafta sonuna özel resmi tavsiyem: mümkün olduğunca az insan, mümkün olduğunca çok huzur. :D"
+    ],
+
+    rare: [
+    "Bugün posta kutusunda normalde olmayan bir şey var. Buraya denk gelme ihtimalin pek yüksek değildi. Madem buldun, şunu da bil: sen aklına koyduğun her şeyi başarırsın çünkü senin inanılmaz bir gücün var ve sevgin de var .",
+
+    "Nadir posta yakaladın. Bunu her gün göremezsin. Ödülün de şu bilgi olsun: Ahtapotların 3 tane kalbi vardır.  .",
+
+    "Bu mesaj normal posta havuzunda yok. Bugüne denk gelmiş. Çok havaya girme ama iyi ki varsın. :D",
+
+    "Gizli mesaj bulundu. Buraya özel ve aşırı anlamlı bir cümle yazmam gerekiyormuş gibi hissediyorum... O yüzden kısa kesiyorum: seni tanıdığım için şanslı hissediyorum.",
+
+    "Şanslı günündesin. Postacı bugün normal mektubu kaybetmiş, bunu bırakmış. Bazı insanların hayatımızda bulunması sıradanlaşıyor ama değerleri sıradanlaşmıyor. Sen de onlardan birisin."
+]
+
+};
+
+/* =========================================
+   ÖZEL GÜN MESAJLARI
+========================================= */
+
+const specialDayMessages = {
+
+    "01-01": {
+        title: "Yeni yıl postası",
+        message:
+            "Yeni bir yıl başladı. Bu yılın sana güzel insanlar, güzel anılar ve sonradan hatırladığında yüzünü güldürecek bolca şey getirmesini diliyorum. Yeni yılın kutlu olsun Zümrüt."
+    }
+
+};
+
+/* =========================================
+   KİLİTLİ MEKTUPLAR
+========================================= */
+
+const lockedMailMessages = [
+
+    {
+        id: "24-mayis",
+        title: "Her şeyin başladığı o saçma saat",
+        unlock: {
+            month: 5,
+            day: 24
+        },
+        message: `24 Mayıs.
+Saat 04:04.
+
+Normal bir gecenin, ileride dönüp tarihini bile hatırlayacağımız bir geceye dönüşeceğini ikimiz de bilmiyorduk muhtemelen.
+
+Ve bugün burada bu mektubu okuyorsan, o gece atılan küçücük mesajın düşündüğümüzden biraz daha uzun bir hikâyesi olmuş demektir.`
+    },
+
+    {
+        id: "07-haziran",
+        title: "Numaranı bahşettiğin kutsal gün",
+        unlock: {
+            month: 6,
+            day: 7
+        },
+        message: `Takvimler 7 Haziran'ı gösterdiğinde büyük bir olay gerçekleşti.
+
+Zümrüt Hanım, uzun değerlendirmeler ve üstün kurul toplantılarının ardından telefon numarasını tarafıma bahşetti.
+
+O gün bunun ne kadar büyük bir ayrıcalık olduğunun farkında mıydım bilmiyorum.
+
+Ama buradan geçmişteki Kazım'a sesleniyorum:
+
+Kardeşim numarayı iyi sakla. İleride lazım olacak. Hem de düşündüğünden daha fazla. :D
+
+Şaka bir yana, küçücük görünen ama bizim hikâyemizde yeri olan günlerden biri.
+
+7 Haziran kutlu olsun. Numaran hâlâ bende, geçmiş olsun.`
+    },
+
+    {
+        id: "27-temmuz",
+        title: "Sihirli kedi... AH BARON AH",
+        unlock: {
+            month: 7,
+            day: 27
+        },
+        message: `İlk defa beraber anime izlediğimiz gün.
+
+Gayet masum başlayan bir aktiviteydi aslında.
+
+Bir şeyler açalım, beraber izleyelim dedik.
+
+Sonra hayatımıza sihirli bir kedi girdi.
+
+Ve Baron...
+
+Ah Baron.
+
+AH BARON AH.
+
+Animeyi ne kadar hatırlarız bilmiyorum ama o günün muhabbetini hatırlayacağımız kesin.
+
+Bazı anıların güzel olması için büyük bir şey yaşanmasına gerek yokmuş zaten. Bazen aynı anda aynı şeyi izleyip saçmalamak yeterli oluyor.
+
+27 Temmuz da onlardan biri olarak burada dursun.
+
+Baron'u da saygıyla analım.`
+    },
+
+    {
+        id: "16-agustos",
+        title: "Telefonun yeniden çaldığı gece",
+        unlock: {
+            month: 8,
+            day: 16
+        },
+        message: `16 Ağustos.
+
+Bir süre sonra telefon yeniden çaldı ve arayan sendin.
+
+İşin komik tarafı, ben o sırada muhtemelen olmamam gereken bir yerdeydim.
+
+Zamanlama konusunda ikimizin de zaman zaman üstün yetenekleri olduğu tartışılmaz zaten.
+
+Ama bütün saçmalığı bir kenara bırakırsak, bugün geriye dönüp baktığımda o aramanın bizim hikâyemizde ayrı bir yeri olduğunu düşünüyorum.
+
+Çünkü bazen uzun uzun konuşmalar, büyük kararlar veya planlar gerekmiyor.
+
+Bazen birinin yeniden araması yetiyor.
+
+O gece sen aradın.
+
+Ben de açtım.
+
+Gerisini zaten ikimiz biliyoruz.`
+    },
+
+    {
+        id: "03-eylul",
+        title: "Bizans İstanbul'u Fatih'e kaptırdı...",
+        unlock: {
+            month: 9,
+            day: 3
+        },
+        message: `3 Eylül.
+
+Sallantılı iletişimimizin uzun vadeli olarak kesildiği o meşhur gün.
+
+Tarih kitapları bu olaydan pek bahsetmiyor ama aynı dönemde çok ciddi gelişmeler yaşandı.
+
+Bizans İstanbul'u Fatih'e kaptırdı...
+
+Biz de birbirimizi kaybettik.
+
+Arada yalnızca yaklaşık 573 yıllık ufak bir kronoloji problemi var, onu da tarihçiler çözsün.
+
+Şaka bir yana, bazı tarihler güzel oldukları için değil, hikâyenin bir parçası oldukları için hatırlanıyor.
+
+Bu da onlardan biri.
+
+O gün iletişim koptu. Uzun süre de öyle kaldı.
+
+Ama belli ki hikâyenin son sayfası değilmiş.
+
+Çünkü şu anda bunu okuyorsun.
+
+Bizans geri alınamadı ama iletişim geri geldi.
+
+Bence bizim başarı oranımız daha yüksek.`
+    }
+
+];
+
+/* =========================================
+   KİLİTLİ MEKTUPLARI GÖSTER
+========================================= */
+
+function renderLockedMails() {
+
+    const container =
+        document.getElementById("lockedMails");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const now = new Date();
+
+    const today = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+    );
+
+    lockedMailMessages.forEach(mail => {
+
+        const isUnlocked =
+            today.getMonth() + 1 === mail.unlock.month &&
+            today.getDate() === mail.unlock.day;
+
+        const unlockDate = new Date(
+            today.getFullYear(),
+            mail.unlock.month - 1,
+            mail.unlock.day
+        );
+
+        const formattedDate =
+            unlockDate.toLocaleDateString(
+                "tr-TR",
+                {
+                    day: "numeric",
+                    month: "long"
+                }
+            );
+
+        const card =
+            document.createElement("div");
+
+        card.className = "locked-mail";
+
+        if (!isUnlocked) {
+
+            card.innerHTML = `
+                <div class="locked-mail-title">
+                    ${formattedDate} Mektubu
+                </div>
+
+                <div class="locked-mail-date">
+                    🔒 Doğru zamanı bekliyor...
+                </div>
+            `;
+
+        } else {
+
+            card.classList.add("unlocked");
+
+            card.innerHTML = `
+                <div class="locked-mail-title">
+                    💌 ${mail.title}
+                </div>
+
+                <div class="locked-mail-date">
+                    ${formattedDate} tarihinde açıldı
+                </div>
+
+                <div class="locked-mail-open">
+                    Mektubu aç →
+                </div>
+            `;
+
+            card.addEventListener("click", function() {
+                openLockedLetter(mail);
+            });
+        }
+
+        container.appendChild(card);
+    });
+}
+
+/* =========================================
+   KİLİTLİ MEKTUBU AÇ
+========================================= */
+
+function openLockedLetter(mail) {
+
+    const modal =
+        document.getElementById("letterReaderModal");
+
+    const title =
+        document.getElementById("letterReaderTitle");
+
+    const date =
+        document.getElementById("letterReaderDate");
+
+    const message =
+        document.getElementById("letterReaderMessage");
+
+
+    if (!modal || !title || !date || !message) {
+        return;
+    }
+
+
+   const unlockDate = new Date(
+    new Date().getFullYear(),
+    mail.unlock.month - 1,
+    mail.unlock.day
+);
+
+  const formattedDate =
+    unlockDate.toLocaleDateString(
+        "tr-TR",
+        {
+            day: "numeric",
+            month: "long"
+        }
+    );
+
+
+    title.textContent =
+        mail.title;
+
+    date.textContent =
+        formattedDate;
+
+    message.textContent =
+        mail.message;
+
+
+    modal.classList.add("active");
+}
+
+
+/* =========================================
+   KİLİTLİ MEKTUBU KAPAT
+========================================= */
+
+function closeLockedLetter() {
+
+    const modal =
+        document.getElementById("letterReaderModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+}
+
+
+/* KARANLIK ALANA BASINCA KAPAT */
+
+document
+    .getElementById("letterReaderModal")
+    ?.addEventListener("click", function(event) {
+
+        if (event.target === this) {
+            closeLockedLetter();
+        }
+
+    });
+
+
+function getSpecialDayMail(date = new Date()) {
+
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
+
+    const day =
+        String(date.getDate()).padStart(2, "0");
+
+    const key =
+        `${month}-${day}`;
+
+    return specialDayMessages[key] || null;
+}
+
+
+/* TARİHİ YEREL OLARAK YYYY-MM-DD YAP */
+
+function getDailyMailDateKey(date = new Date()) {
+
+    const year = date.getFullYear();
+
+    const month = String(
+        date.getMonth() + 1
+    ).padStart(2, "0");
+
+    const day = String(
+        date.getDate()
+    ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+/* TARİHTEN SABİT BİR SAYI ÜRET */
+
+function getDailyMailNumber(dateKey) {
+
+    let number = 0;
+
+    for (let i = 0; i < dateKey.length; i++) {
+
+        number =
+            ((number << 5) - number)
+            + dateKey.charCodeAt(i);
+
+        number |= 0;
+    }
+
+    return Math.abs(number);
+}
+
+
+/* BUGÜNÜN MESAJINI SEÇ */
+
+function getTodaysMail() {
+
+    const now = new Date();
+
+    const todayKey =
+        getDailyMailDateKey(now);
+
+    const hour =
+        now.getHours();
+
+    const day =
+        now.getDay();
+
+
+    let pool;
+
+/* =========================================
+   ÖZEL GÜN KONTROLÜ
+========================================= */
+
+const specialMail =
+    getSpecialDayMail(now);
+
+if (specialMail) {
+    return specialMail.message;
+}
+
+    /* =========================================
+   NADİR MESAJ KONTROLÜ
+========================================= */
+
+const rareNumber =
+    getDailyMailNumber(todayKey + "-rare");
+
+
+/*
+   Yaklaşık her 20 günden 1'inde
+   nadir mesaj günü oluşur.
+*/
+
+const isRareDay =
+    rareNumber % 20 === 0;
+
+
+if (isRareDay) {
+
+    const rareIndex =
+        rareNumber % dailyMailMessages.rare.length;
+
+    return dailyMailMessages.rare[rareIndex];
+}
+
+
+    /* HAFTA SONU */
+
+    if (day === 0 || day === 6) {
+
+        pool = dailyMailMessages.weekend;
+
+    }
+
+
+    /* GECE 00:00 - 05:59 */
+
+    else if (hour < 6) {
+
+        pool = dailyMailMessages.night;
+
+    }
+
+
+    /* SABAH 06:00 - 11:59 */
+
+    else if (hour < 12) {
+
+        pool = dailyMailMessages.morning;
+
+    }
+
+
+    /* AKŞAM 18:00 - 23:59 */
+
+    else if (hour >= 18) {
+
+        pool = dailyMailMessages.evening;
+
+    }
+
+
+    /* DİĞER SAATLER */
+
+    else {
+
+        pool = dailyMailMessages.normal;
+
+    }
+
+
+    const number =
+        getDailyMailNumber(todayKey);
+
+    const index =
+        number % pool.length;
+
+
+    return pool[index];
+}
+
+function getStoredTodaysMail() {
+
+    const todayKey = getDailyMailDateKey();
+
+    const saved = JSON.parse(
+        localStorage.getItem("zumrutTodaysMail") || "null"
+    );
+
+    if (saved && saved.dateKey === todayKey) {
+        return saved.message;
+    }
+
+    const message = getTodaysMail();
+
+    localStorage.setItem(
+        "zumrutTodaysMail",
+        JSON.stringify({
+            dateKey: todayKey,
+            message: message
+        })
+    );
+
+    return message;
+}
+
+
+/* POSTA KUTUSUNU GÜNCELLE */
+
+function renderDailyMail() {
+
+    const dateElement =
+        document.getElementById("dailyMailDate");
+
+   const messageElement =
+    document.getElementById("dailyMailMessage");
+
+const labelElement =
+    document.getElementById("dailyMailLabel");
+
+if (!dateElement || !messageElement || !labelElement) {
+    return;
+}
+
+
+    const today = new Date();
+
+
+    /* TÜRKÇE TARİH */
+
+    dateElement.textContent =
+        today.toLocaleDateString(
+            "tr-TR",
+            {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+
+/* GÜNÜN MESAJI */
+
+const specialMail =
+    getSpecialDayMail(today);
+
+if (specialMail) {
+
+    labelElement.textContent =
+        specialMail.title.toUpperCase();
+
+    messageElement.textContent =
+        specialMail.message;
+
+} else {
+
+    labelElement.textContent =
+        "BUGÜNÜN MESAJI";
+messageElement.textContent =
+    getStoredTodaysMail();
+}
+}
+
+/* SAYFA AÇILDIĞINDA ÇALIŞTIR */
+
+/* =========================================
+   SON 3 GÜNLÜK MESAJ ARŞİVİ
+========================================= */
+
+function saveTodaysMail() {
+
+    const today = new Date();
+    const todayKey = getDailyMailDateKey(today);
+   const todaysMessage = getStoredTodaysMail();
+
+    let history = JSON.parse(
+        localStorage.getItem("zumrutMailHistory") || "[]"
+    );
+
+    /* Bugünün mesajı daha önce kaydedilmiş mi? */
+
+    const alreadySaved = history.some(
+        item => item.dateKey === todayKey
+    );
+
+    if (!alreadySaved) {
+
+        history.push({
+            dateKey: todayKey,
+            message: todaysMessage,
+            timestamp: new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate()
+            ).getTime()
+        });
+
+    }
+
+
+    /* SADECE BUGÜNDEN ÖNCEKİ SON 3 GÜNÜ SAKLA */
+
+    const todayStart = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+    );
+
+    const threeDaysAgo = new Date(todayStart);
+
+    threeDaysAgo.setDate(
+        threeDaysAgo.getDate() - 3
+    );
+
+    history = history.filter(item => {
+
+        const itemDate = new Date(item.timestamp);
+
+        return (
+            itemDate >= threeDaysAgo &&
+            itemDate <= todayStart
+        );
+
+    });
+
+
+    localStorage.setItem(
+        "zumrutMailHistory",
+        JSON.stringify(history)
+    );
+}
+
+
+/* =========================================
+   SON MESAJLARI GÖSTER
+========================================= */
+
+function renderMailHistory() {
+
+    const historyElement =
+        document.getElementById("mailboxHistory");
+
+    if (!historyElement) return;
+
+
+    let history = JSON.parse(
+        localStorage.getItem("zumrutMailHistory") || "[]"
+    );
+
+
+    const todayKey = getDailyMailDateKey();
+
+
+    /* Bugünü listeden çıkar.
+       Çünkü zaten yukarıda Bugünün Mesajı olarak görünüyor. */
+
+    history = history.filter(
+        item => item.dateKey !== todayKey
+    );
+
+
+    /* Yeniden eskiye sırala */
+
+    history.sort(
+        (a, b) => b.timestamp - a.timestamp
+    );
+
+
+    /* En fazla 3 mesaj */
+
+    history = history.slice(0, 3);
+
+
+    if (history.length === 0) {
+
+        historyElement.innerHTML = `
+            <div class="mailbox-empty">
+                Henüz eski bir mesaj yok.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    historyElement.innerHTML = "";
+
+
+    history.forEach(item => {
+
+        const date = new Date(item.timestamp);
+
+        const formattedDate =
+            date.toLocaleDateString(
+                "tr-TR",
+                {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "mailbox-history-item";
+
+
+        card.innerHTML = `
+            <div class="mailbox-history-date">
+                ${formattedDate}
+            </div>
+
+            <div class="mailbox-history-preview">
+                ${item.message}
+            </div>
+        `;
+
+
+        historyElement.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================
+   POSTA SİSTEMİNİ BAŞLAT
+========================================= */
+
+renderDailyMail();
+
+saveTodaysMail();
+
+renderMailHistory();
+
+renderLockedMails();
+
+/* =========================================
+   GECE MODU
+========================================= */
+
+function checkNightMode() {
+    const now = new Date();
+    const hour = now.getHours();
+
+    const isNight = hour >= 0 && hour < 6;
+
+    if (isNight) {
+        document.body.classList.add("night-mode");
+    } else {
+        document.body.classList.remove("night-mode");
+    }
+}
+
+checkNightMode();
+
+setInterval(checkNightMode, 60000);
+
+checkNightMode();
+
+setInterval(checkNightMode, 60000);
+
+function createNightStars() {
+    const sky = document.getElementById("nightSky");
+
+    if (!sky) return;
+
+    sky.innerHTML = "";
+
+    for (let i = 0; i < 45; i++) {
+        const star = document.createElement("span");
+
+        star.className = "night-star";
+
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+
+        const size = 1 + Math.random() * 2.5;
+
+        star.style.width = size + "px";
+        star.style.height = size + "px";
+
+        star.style.animationDelay = Math.random() * 3 + "s";
+        star.style.animationDuration = 2 + Math.random() * 3 + "s";
+
+        sky.appendChild(star);
+    }
+}
+
+createNightStars();
+
+function createShootingStar() {
+    const sky = document.getElementById("nightSky");
+
+    if (!sky || !document.body.classList.contains("night-mode")) {
+        return;
+    }
+
+    const shootingStar = document.createElement("span");
+
+    shootingStar.className = "shooting-star";
+
+    // Her seferinde biraz farklı yükseklikten başlasın
+    shootingStar.style.top = (5 + Math.random() * 35) + "%";
+
+    sky.appendChild(shootingStar);
+
+    // Animasyon bittikten sonra elementi temizle
+    setTimeout(() => {
+        shootingStar.remove();
+    }, 1600);
+}
+
+function scheduleShootingStar() {
+
+    // 15–35 saniye arasında rastgele bekleme
+    const delay = 15000 + Math.random() * 20000;
+
+    setTimeout(() => {
+        createShootingStar();
+
+        // Sonraki kayan yıldız için yeniden rastgele süre seç
+        scheduleShootingStar();
+    }, delay);
+}
+
+scheduleShootingStar();
+
+/* =========================================
+   GECE EASTER EGG
+========================================= */
+
+function openNightSecret() {
+    const modal = document.getElementById("nightSecretModal");
+
+    if (!modal) return;
+
+    modal.classList.add("active");
+}
+
+function closeNightSecret() {
+    const modal = document.getElementById("nightSecretModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+}
+
+
+
+function checkTodayMemory() {
+    const widget = document.getElementById("memoryTodayWidget");
+
+    if (!widget) return;
+
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    const memory = todayMemories.find(item =>
+        item.month === month &&
+        item.day === day
+    );
+
+    if (memory) {
+        widget.classList.add("active");
+    } else {
+        widget.classList.remove("active");
+    }
+}
+
+checkTodayMemory();
+function openTodayMemory() {
+    const modal = document.getElementById("memoryTodayModal");
+    const title = document.getElementById("memoryTodayTitle");
+    const date = document.getElementById("memoryTodayDate");
+    const message = document.getElementById("memoryTodayMessage");
+    const photo = document.getElementById("memoryTodayPhoto");
+
+    if (!modal || !title || !date || !message || !photo) return;
+
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    const memory = todayMemories.find(item =>
+        item.month === month &&
+        item.day === day
+    );
+
+    if (!memory) return;
+
+    title.textContent = memory.title;
+    date.textContent = memory.date;
+    message.textContent = memory.message;
+
+    photo.innerHTML = "";
+    photo.style.display = "none";
+
+    modal.classList.add("active");
+}
+
+function closeTodayMemory() {
+    const modal = document.getElementById("memoryTodayModal");
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+}
+
+
 </script>
 
 <div id="bloomHint">
@@ -13825,3 +17775,5 @@ function finishKazimQuiz() {
 
 </body>
 </html>
+
+
