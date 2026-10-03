@@ -9887,7 +9887,7 @@ body.story-stage-4 {
     <div id="november10VideoScreen" class="november10-video-screen">
         <video
             id="november10Video"
-            src="atatürk.mp4"
+           src="ssstik.io_@programmeroot_1791049325029.mp4"
             playsinline
             preload="auto"
         ></video>
@@ -9907,6 +9907,7 @@ body.story-stage-4 {
 </div>
 
 <audio id="november10ClockSound" src="clock.mp3" preload="auto"></audio>
+
 <audio id="november10Siren" src="siren.mp3" preload="auto"></audio>
 </div>
    <!-- =========================================
@@ -18081,34 +18082,36 @@ function startNovember10Memorial() {
             });
 
             // Siren tamamen bittikten sonra videoya geç
-            siren.addEventListener("ended", function () {
+siren.addEventListener("ended", function () {
 
-                clock.classList.add("hide");
+    console.log("Siren bitti, videoya geçiliyor.");
 
-                setTimeout(function () {
+    clock.classList.add("hide");
 
-                    silenceScreen.classList.remove("active");
+    setTimeout(function () {
 
-                    videoScreen.style.display = "flex";
+        silenceScreen.classList.remove("active");
+        silenceScreen.style.display = "none";
 
-                    video.currentTime = 0;
+        videoScreen.style.display = "flex";
+        videoScreen.style.zIndex = "20";
 
-                    video.play().catch(error => {
-                        console.log(
-                            "10 Kasım videosu başlatılamadı:",
-                            error
-                        );
-                    });
+        video.currentTime = 0;
 
-                }, 2000);
+        video.play().then(() => {
+            console.log("Atatürk videosu başladı.");
+        }).catch(error => {
+            console.error("VIDEO BAŞLATMA HATASI:", error);
+        });
 
-            }, { once: true });
+    }, 2000);
+
+}, { once: true });
         }
 
     }, 1000);
 }
 
-window.addEventListener("load", checkNovember10Memorial);
 
 
 </script>
