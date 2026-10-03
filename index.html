@@ -9662,6 +9662,191 @@ body.story-stage-4 {
         top 1.2s ease !important;
 }
 
+/* =========================================
+   10 KASIM ANMA EKRANI
+========================================= */
+
+.november10-memorial {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 9999999;
+    display: none;
+    overflow: hidden;
+}
+/* 10 KASIM GİRİŞ */
+
+.november10-intro {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #000;
+    z-index: 10;
+
+    text-align: center;
+
+    transition: opacity 1.5s ease;
+}
+
+.november10-intro.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.november10-intro-content {
+    padding: 30px;
+}
+
+.november10-intro-date {
+    color: #fff;
+
+    font-family: "Times New Roman", serif;
+    font-size: clamp(34px, 7vw, 70px);
+    font-weight: 400;
+
+    letter-spacing: 8px;
+}
+
+.november10-intro-line {
+    width: 70px;
+    height: 1px;
+
+    margin: 28px auto;
+
+    background: rgba(255,255,255,0.45);
+}
+
+.november10-intro p {
+    color: rgba(255,255,255,0.65);
+
+    font-family: "Times New Roman", serif;
+    font-size: 18px;
+
+    letter-spacing: 2px;
+}
+
+#november10StartButton {
+    margin-top: 40px;
+
+    padding: 14px 28px;
+
+    background: transparent;
+    color: rgba(255,255,255,0.85);
+
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 2px;
+
+    font-family: "Times New Roman", serif;
+    font-size: 15px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease,
+        border-color 0.4s ease;
+}
+
+#november10StartButton:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border-color: rgba(255,255,255,0.7);
+
+    transform: none;
+}
+.november10-memorial.active {
+    display: block;
+}
+
+.november10-video-screen {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#november10Video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+}
+
+.november10-silence-screen {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.november10-silence-screen.active {
+    display: flex;
+}
+
+.november10-clock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: #ffffff;
+
+    font-family: "Courier New", monospace;
+    font-size: clamp(55px, 12vw, 130px);
+    font-weight: 300;
+
+    letter-spacing: 8px;
+
+    text-shadow:
+        0 0 20px rgba(255,255,255,0.15);
+
+    opacity: 1;
+    transition: opacity 2s ease;
+}
+
+.november10-clock.hide {
+    opacity: 0;
+}
+
+.november10-final-message {
+    color: white;
+    opacity: 0;
+    transition: opacity 3s ease;
+}
+
+.november10-final-message.show {
+    opacity: 1;
+}
+
+.november10-final-message h1 {
+    margin: 0 0 14px;
+    font-size: clamp(26px, 5vw, 48px);
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.november10-final-message p {
+    margin: 0;
+    font-size: clamp(18px, 3vw, 26px);
+    letter-spacing: 5px;
+    opacity: 0.8;
+}
+
 </style>
 
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9fe119d4-dbe6-4d0d-a491-ccc27c13827a"></script>
@@ -9670,6 +9855,60 @@ body.story-stage-4 {
 
 <body>
 
+<!-- =========================================
+     10 KASIM ANMA EKRANI
+========================================= -->
+
+<div id="november10Memorial" class="november10-memorial">
+<div id="november10Intro" class="november10-intro">
+
+    <div class="november10-intro-content">
+
+        <div class="november10-intro-date">
+            10 KASIM 1938
+        </div>
+
+        <div class="november10-intro-line"></div>
+
+        <p>
+            Bazı anlar geçmez.
+        </p>
+
+        <button
+            id="november10StartButton"
+            onclick="startNovember10Memorial()"
+        >
+            09:05'e Tanıklık Et
+        </button>
+
+    </div>
+
+</div>
+    <div id="november10VideoScreen" class="november10-video-screen">
+        <video
+            id="november10Video"
+            src="atatürk.mp4"
+            playsinline
+            preload="auto"
+        ></video>
+    </div>
+
+   <div id="november10SilenceScreen" class="november10-silence-screen">
+
+    <div id="november10Clock" class="november10-clock">
+        09:04:55
+    </div>
+
+    <div class="november10-final-message">
+        <h1>Saygı, özlem ve minnetle.</h1>
+        <p>1881 — 1938</p>
+    </div>
+
+</div>
+
+<audio id="november10ClockSound" src="clock.mp3" preload="auto"></audio>
+<audio id="november10Siren" src="siren.mp3" preload="auto"></audio>
+</div>
    <!-- =========================================
      GECE YILDIZLARI
 ========================================= -->
@@ -17704,65 +17943,172 @@ function closeNightSecret() {
 
 
 
-function checkTodayMemory() {
-    const widget = document.getElementById("memoryTodayWidget");
 
-    if (!widget) return;
+/* =========================================
+   10 KASIM ANMA SİSTEMİ
+========================================= */
 
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
+function checkNovember10Memorial() {
 
-    const memory = todayMemories.find(item =>
-        item.month === month &&
-        item.day === day
-    );
+    const now = new Date(2026, 10, 10, 12, 0, 0);
 
-    if (memory) {
-        widget.classList.add("active");
-    } else {
-        widget.classList.remove("active");
+    // Sadece 10 Kasım'da çalışır
+    if (now.getMonth() !== 10 || now.getDate() !== 10) {
+        return;
     }
+
+    const year = now.getFullYear();
+    const storageKey = "november10Memorial_" + year;
+
+    // Bu yıl daha önce tamamen izlendiyse tekrar gösterme
+    if (localStorage.getItem(storageKey) === "watched") {
+        return;
+    }
+
+    const memorial = document.getElementById("november10Memorial");
+    const videoScreen = document.getElementById("november10VideoScreen");
+    const video = document.getElementById("november10Video");
+    const silenceScreen = document.getElementById("november10SilenceScreen");
+    const finalMessage = document.querySelector(".november10-final-message");
+
+    if (!memorial || !video) return;
+
+    // Siteyi kilitle
+    memorial.classList.add("active");
+    document.body.style.overflow = "hidden";
+
+    // Sitedeki müzik varsa durdur
+    if (typeof music !== "undefined") {
+        music.pause();
+    }
+
+    video.currentTime = 0;
+
+ 
+    // Video tamamlandığında
+    video.addEventListener("ended", function () {
+
+        videoScreen.style.display = "none";
+        silenceScreen.classList.add("active");
+
+        // 1 dakika boyunca tamamen siyah ekran
+        setTimeout(function () {
+
+            finalMessage.classList.add("show");
+
+            // Yazıyı 6 saniye göster
+            setTimeout(function () {
+
+                // Ancak her şey tamamlandığında izlendi say
+                localStorage.setItem(storageKey, "watched");
+
+                memorial.classList.remove("active");
+                document.body.style.overflow = "";
+
+            }, 6000);
+
+        }, 60000);
+
+    }, { once: true });
 }
 
-checkTodayMemory();
-function openTodayMemory() {
-    const modal = document.getElementById("memoryTodayModal");
-    const title = document.getElementById("memoryTodayTitle");
-    const date = document.getElementById("memoryTodayDate");
-    const message = document.getElementById("memoryTodayMessage");
-    const photo = document.getElementById("memoryTodayPhoto");
 
-    if (!modal || !title || !date || !message || !photo) return;
+function startNovember10Memorial() {
 
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
+    const intro = document.getElementById("november10Intro");
+    const videoScreen = document.getElementById("november10VideoScreen");
+    const video = document.getElementById("november10Video");
+    const silenceScreen = document.getElementById("november10SilenceScreen");
+    const clock = document.getElementById("november10Clock");
+    const clockSound = document.getElementById("november10ClockSound");
+    const siren = document.getElementById("november10Siren");
 
-    const memory = todayMemories.find(item =>
-        item.month === month &&
-        item.day === day
-    );
+    // Butona ikinci kez basılmasını engelle
+    const startButton = document.getElementById("november10StartButton");
+    startButton.disabled = true;
 
-    if (!memory) return;
+    // Giriş ekranını yavaşça kaldır
+    intro.classList.add("hide");
 
-    title.textContent = memory.title;
-    date.textContent = memory.date;
-    message.textContent = memory.message;
+    // Video şimdilik görünmesin
+    videoScreen.style.display = "none";
 
-    photo.innerHTML = "";
-    photo.style.display = "none";
+    // Saat ekranını göster
+    silenceScreen.classList.add("active");
 
-    modal.classList.add("active");
+    clock.classList.remove("hide");
+    clock.style.display = "block";
+    clock.textContent = "09:04:55";
+
+    // İlk tik
+    clockSound.currentTime = 0;
+    clockSound.play().catch(error => {
+        console.log("Saat sesi başlatılamadı:", error);
+    });
+
+    let seconds = 55;
+
+    const clockInterval = setInterval(function () {
+
+        seconds++;
+
+        if (seconds < 60) {
+
+            clock.textContent =
+                "09:04:" + String(seconds).padStart(2, "0");
+
+            // Her saniyede tik sesini yeniden oynat
+            clockSound.currentTime = 0;
+
+            clockSound.play().catch(() => {});
+
+        } else {
+
+            // 09:05:00
+            clearInterval(clockInterval);
+
+            clock.textContent = "09:05:00";
+
+            // Saat sesini durdur
+            clockSound.pause();
+            clockSound.currentTime = 0;
+
+            // Sireni başlat
+            siren.currentTime = 0;
+
+            siren.play().catch(error => {
+                console.log("Siren başlatılamadı:", error);
+            });
+
+            // Siren tamamen bittikten sonra videoya geç
+            siren.addEventListener("ended", function () {
+
+                clock.classList.add("hide");
+
+                setTimeout(function () {
+
+                    silenceScreen.classList.remove("active");
+
+                    videoScreen.style.display = "flex";
+
+                    video.currentTime = 0;
+
+                    video.play().catch(error => {
+                        console.log(
+                            "10 Kasım videosu başlatılamadı:",
+                            error
+                        );
+                    });
+
+                }, 2000);
+
+            }, { once: true });
+        }
+
+    }, 1000);
 }
 
-function closeTodayMemory() {
-    const modal = document.getElementById("memoryTodayModal");
-
-    if (!modal) return;
-
-    modal.classList.remove("active");
-}
+window.addEventListener("load", checkNovember10Memorial);
 
 
 </script>
