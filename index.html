@@ -17837,7 +17837,7 @@ renderLockedMails();
 
 function checkNightMode() {
     const now = new Date();
-    const hour = 2;
+    const hour = now.getHours();
 
     const isNight = hour >= 0 && hour < 6;
 
