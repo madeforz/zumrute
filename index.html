@@ -9847,6 +9847,225 @@ body.story-stage-4 {
     opacity: 0.8;
 }
 
+/* =========================================
+   ZÜMRÜT CHATBOT
+========================================= */
+
+.zumrut-chatbot {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    z-index: 999999;
+}
+
+/* CHATBOT AÇMA BUTONU */
+
+.chatbot-button {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    border-radius: 50% !important;
+
+    background: rgba(255,255,255,0.90) !important;
+    color: #762f50 !important;
+
+    font-size: 25px;
+
+    box-shadow: 0 8px 25px rgba(80,25,50,0.20) !important;
+
+    cursor: pointer;
+}
+
+/* CHATBOT PENCERESİ */
+
+.chatbot-window {
+    position: absolute;
+
+   left: 50%;
+transform: translateX(-50%);
+    bottom: 72px;
+
+    width: 340px;
+    height: 470px;
+
+    display: none;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: rgba(255,245,249,0.98);
+
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 22px;
+
+    box-shadow: 0 20px 60px rgba(80,25,50,0.28);
+}
+
+.chatbot-window.active {
+    display: flex;
+}
+
+/* ÜST KISIM */
+
+.chatbot-header {
+    padding: 17px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: linear-gradient(
+        135deg,
+        #b85782,
+        #df7da7
+    );
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.chatbot-status {
+    display: inline-block;
+
+    width: 8px;
+    height: 8px;
+
+    margin-right: 7px;
+
+    background: #8cffad;
+
+    border-radius: 50%;
+}
+
+.chatbot-header button {
+    width: 28px !important;
+    height: 28px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+
+    background: transparent !important;
+    color: white !important;
+
+    font-size: 22px;
+}
+
+/* MESAJLAR */
+
+.chatbot-messages {
+    flex: 1;
+
+    padding: 18px;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chatbot-message {
+    max-width: 82%;
+
+    padding: 11px 14px;
+
+    border-radius: 16px;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.chatbot-message.bot {
+    align-self: flex-start;
+
+    background: #f1d6e1;
+    color: #652943;
+
+    border-bottom-left-radius: 5px;
+}
+
+.chatbot-message.user {
+    align-self: flex-end;
+
+    background: #b85782;
+    color: white;
+
+    border-bottom-right-radius: 5px;
+}
+
+/* YAZI YAZMA ALANI */
+
+.chatbot-input-area {
+    padding: 12px;
+
+    display: flex;
+    gap: 8px;
+
+    background: white;
+
+    border-top: 1px solid rgba(118,47,80,0.10);
+}
+
+.chatbot-input-area input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 11px 13px;
+
+    border: 1px solid rgba(118,47,80,0.18);
+    border-radius: 14px;
+
+    outline: none;
+
+    color: #652943;
+}
+
+.chatbot-input-area input:focus {
+    border-color: #b85782;
+}
+
+.chatbot-input-area button {
+    margin: 0 !important;
+    padding: 10px 13px !important;
+
+    border-radius: 13px !important;
+
+    background: #b85782 !important;
+    color: white !important;
+
+    font-size: 12px;
+}
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+
+    .zumrut-chatbot {
+       
+        bottom: 10px;
+    }
+
+    .chatbot-window {
+        width: min(340px, calc(100vw - 20px));
+        height: min(470px, 70vh);
+    }
+}
+
+
 </style>
 
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9fe119d4-dbe6-4d0d-a491-ccc27c13827a"></script>
@@ -18113,6 +18332,780 @@ siren.addEventListener("ended", function () {
 }
 
 
+/* =========================================
+   ZÜMRÜT CHATBOT
+========================================= */
+
+function toggleChatbot() {
+    const chatbotWindow = document.getElementById("chatbotWindow");
+
+    chatbotWindow.classList.toggle("active");
+
+    if (chatbotWindow.classList.contains("active")) {
+        setTimeout(() => {
+            document.getElementById("chatbotInput").focus();
+        }, 200);
+    }
+}
+
+
+function sendChatbotMessage() {
+
+    const input = document.getElementById("chatbotInput");
+    const messages = document.getElementById("chatbotMessages");
+
+    const text = input.value.trim();
+
+    if (!text) return;
+
+
+    // Kullanıcının mesajı
+    const userMessage = document.createElement("div");
+
+    userMessage.className = "chatbot-message user";
+    userMessage.textContent = text;
+
+    messages.appendChild(userMessage);
+
+
+    // Yazı alanını temizle
+    input.value = "";
+
+
+    // En alta kaydır
+    messages.scrollTop = messages.scrollHeight;
+
+
+// BOT CEVABI
+setTimeout(() => {
+
+    const botMessage = document.createElement("div");
+
+    botMessage.className = "chatbot-message bot";
+    botMessage.textContent = getChatbotResponse(text);
+
+    messages.appendChild(botMessage);
+
+    messages.scrollTop = messages.scrollHeight;
+
+}, 700);
+
+}
+
+/* ENTER İLE MESAJ GÖNDER */
+
+document
+    .getElementById("chatbotInput")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendChatbotMessage();
+        }
+
+    });
+
+    let kazimaMesajBekleniyor = false;
+
+async function kazimaMesajGonder(message) {
+
+    try {
+
+        const response = await fetch(
+            "https://zumrut-bot.kazimkzn2.workers.dev/",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: message
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        return data.success === true;
+
+    } catch (error) {
+
+        console.error("Kazım mesaj gönderme hatası:", error);
+
+        return false;
+    }
+}
+
+function getChatbotResponse(message) {
+
+    const text = message
+        .toLocaleLowerCase("tr-TR")
+        .trim();
+// KAZIM'A GÖNDERİLECEK MESAJI YAKALA
+if (kazimaMesajBekleniyor) {
+
+    kazimaMesajBekleniyor = false;
+
+    kazimaMesajGonder(message).then((basarili) => {
+
+        const messages = document.getElementById("chatbotMessages");
+
+        const botMessage = document.createElement("div");
+        botMessage.className = "chatbot-message bot";
+
+        if (basarili) {
+            botMessage.textContent =
+                "Mesajın Kazım'a ulaştı. Artık görmezden gelirse benim suçum değil. :D";
+        } else {
+            botMessage.textContent =
+                "Mesajı Kazım'a gönderirken bir sorun çıktı. Biraz sonra tekrar deneyebilirsin.";
+        }
+
+        messages.appendChild(botMessage);
+        messages.scrollTop = messages.scrollHeight;
+    });
+
+    return "Mesajını Kazım'a gönderiyorum...";
+}
+   if (
+    text.includes("merhaba") ||
+    text.includes("selam") ||
+    text === "sa"
+) {
+
+    const selamCevaplari = [
+        "Selam Zümrüt. Buradayım, anlat bakalım.",
+        "Selammm. Yine karşılaştık. :D",
+        "Merhaba Zümrüt. Bugün ne konuşuyoruz?",
+        "Selam. Sitenin derinliklerinden geldim.",
+        "Aleyküm selam kuzen.",
+        "Hoş geldin. Ben zaten buradaydım, gidecek başka yerim yok."
+    ];
+
+    return selamCevaplari[
+        Math.floor(Math.random() * selamCevaplari.length)
+    ];
+}
+
+
+
+  if (
+    text.includes("nasılsın") ||
+    text.includes("naber") ||
+    text.includes("napıyorsun")
+) {
+
+    const durumCevaplari = [
+        "İyiyim, takılıyorum burada. Sen nasılsın?",
+        "Ne olsun, sitenin içinde Kazım'ın yazdığı kodlarla hayatta kalmaya çalışıyorum.",
+        "İyiyim sayılır. Sonuçta bir internet sitesinin içinde yaşıyorum. :D",
+        "Senden naber asıl?",
+        "Aynı ya, gelen geçene cevap veriyorum. Yoğun mesai. Ama sakın alınma sen çok daha özelsin, sana hizmet etmekten zevk alıyorum."
+    ];
+
+    return durumCevaplari[
+        Math.floor(Math.random() * durumCevaplari.length)
+    ];
+}
+
+    if (
+        text.includes("sen kimsin") ||
+        text.includes("kimsin")
+    ) {
+        return "Ben Zümrüt için bu sitenin içine koyulduğum için şanslı olan küçük bir chatbotum.";
+    }
+
+  
+if (text.includes("eyvallah")) {
+
+    const eyvallahCevaplari = [
+        "Eyvallahınla var ol.",
+        "Eyvallahın kadar yaşa.",
+        "Eyvallah bizden kuzen."
+    ];
+
+    return eyvallahCevaplari[
+        Math.floor(Math.random() * eyvallahCevaplari.length)
+    ];
+}
+    if (
+        text.includes("teşekkür") ||
+        text.includes("sağ ol") 
+        
+    ) {
+        return "Ne demek. Ben buradayım.";
+    }
+
+/* =========================
+   KAZIM HAKKINDA SORULAR
+========================= */
+
+// Kazım kim?
+if (
+    text.includes("kazım kim") ||
+    text.includes("kazım kimdir")
+) {
+    return "Bu sitenin arkasındaki şahıs. Kod yazarken siteyi birkaç kez bozduğu doğrudur ama sonunda toparlıyor. :D";
+}
+
+
+// Kazım beni seviyor mu?
+if (
+    text.includes("kazım beni seviyor mu") ||
+    text.includes("kazım beni sever mi")
+) {
+    return "Ben chatbotum, ilişki uzmanı değilim. Ama senin için bu kadar uğraşıp site yaptıysa bir miktar değer veriyor olabilir. :D";
+}
+
+
+// Kazım beni ne kadar seviyor?
+if (
+    text.includes("kazım beni ne kadar seviyor") ||
+    text.includes("kazım ne kadar seviyor")
+) {
+    return "Bunu ölçen sensörüm henüz yok. Ama bu sitenin satır sayısına bakarsak az uğraşmamış.";
+}
+
+
+// Kazım nerede?
+if (
+    text.includes("kazım nerede")
+) {
+    return "Muhtemelen bilgisayar başında bir şeylerle uğraşıyor. Ben nereden bileyim, GPS miyim?";
+}
+
+
+// Kazım ne yapıyor?
+if (
+    text.includes("kazım ne yapıyor") ||
+    text.includes("kazım napıyor")
+) {
+    return "Büyük ihtimalle bir şeyleri kurcalıyor. Çalışıyorsa bozma ihtimali de var.";
+}
+
+
+// Kazım salak mı?
+if (
+    text.includes("kazım salak mı") ||
+    text.includes("kazım aptal mı")
+) {
+    return "Bu konuda tarafsız kalmam gerekiyor. Sonuçta beni o yazdı, işimi kaybetmek istemiyorum.";
+}
+
+
+// Kazım yakışıklı mı?
+if (
+    text.includes("kazım yakışıklı mı")
+) {
+    return "Kameraya erişimim yok. Bu soruyu pas geçiyorum. :D";
+}
+
+
+// Kazım hakkında ne biliyorsun?
+if (
+    text.includes("kazım hakkında ne biliyorsun") ||
+    text.includes("kazım hakkında bildiklerin")
+) {
+    return "Bildiğim şeyler var ama hepsini ilk mesajda söylersem dedikodunun tadı kaçar.";
+}
+
+
+// Kazım'ın en sevdiği oyun
+if (
+    text.includes("kazım'ın en sevdiği oyun") ||
+    text.includes("kazımın en sevdiği oyun") ||
+    text.includes("kazım hangi oyunu seviyor")
+) {
+    return "Rust. Bunu bilirsen Kazım Quiz'den de bir puanı cebine koyarsın.";
+}
+
+
+// Kazım'ın en sevdiği yemek
+if (
+    text.includes("kazım'ın en sevdiği yemek") ||
+    text.includes("kazımın en sevdiği yemek") ||
+    text.includes("kazım hangi yemeği seviyor")
+) {
+    return "Yaprak sarması. Bu bilgi gereksiz derecede önemli.";
+}
+
+
+// Kazım'ın en sevdiği renk
+if (
+    text.includes("kazım'ın en sevdiği renk") ||
+    text.includes("kazımın en sevdiği renk")
+) {
+    return "Siyah.";
+}
+
+
+// Kazım en çok neye sinir olur?
+if (
+    text.includes("kazım neye sinir olur") ||
+    text.includes("kazım en çok neye sinir olur") ||
+    text.includes("kazım neye sinirlenir")
+) {
+    return "Yalan ve yüzüne telefon kapatılması pek iyi fikirler değil.";
+}
+
+
+// Kazım beni özledi mi?
+if (
+    text.includes("kazım beni özledi mi") ||
+    text.includes("kazım beni özlüyor mu")
+) {
+    return "Onun kafasının içine erişimim yok. Ama istersen kendisine sorup risk alabilirsin. :D";
+}
+
+
+// Kazım'a ne söylemek istersin?
+if (
+    text.includes("kazım'a ne söylemek istersin") ||
+    text.includes("kazıma ne söylemek istersin")
+) {
+    return "Bir daha parantez kapatmayı unutma Kazım. Az önce başımıza gelenleri ikimiz de biliyoruz.";
+}
+
+
+
+// Sadece Kazım yazılırsa
+if (text === "kazım") {
+
+    const kazimCevaplari = [
+        "Efendim? Patronu mu çağırdın? :D",
+        "Kazım şu an burada değil. Mesajınızı bip sesinden sonra bırakabilirsiniz. BİİİP.",
+        "Onu tanıyorum. Beni buraya kapatan adam.",
+        "Kazım hakkında konuşacaksak önce avukatımı çağırmam lazım.",
+        "Kazım.exe şu anda başka bir işlemle meşgul.",
+        "Heh, yine konu ona geldi. Ne yaptı bu sefer?"
+    ];
+
+    return kazimCevaplari[
+        Math.floor(Math.random() * kazimCevaplari.length)
+    ];
+}
+
+/* =========================================
+   ZÜMRÜT BOT - GENEL SOHBET CEVAPLARI
+========================================= */
+
+
+// NE YAPABİLİRSİN?
+if (
+    text.includes("ne yapabilirsin") ||
+    text.includes("neler yapabilirsin") ||
+    text.includes("ne işe yarıyorsun")
+) {
+    const cevaplar = [
+        "Seninle konuşabilirim, Kazım hakkında dedikodu yapabilirim ve bu sitenin bazı sırlarını biliyor olabilirim.",
+        "Şimdilik sohbet ediyorum. Ama beni hafife alma, zamanla buranın yöneticisi olabilirim. :D",
+        "Sorularına cevap verebilirim. Özellikle Kazım hakkında sorarsan gereğinden fazla bilgim var."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// CANIM SIKILIYOR
+if (
+    text.includes("canım sıkılıyor") ||
+    text.includes("sıkıldım") ||
+    text.includes("çok sıkıldım")
+) {
+    const cevaplar = [
+        "Sitede biraz dolaş. Kazım buraya gereksiz miktarda şey koymuş, illa oyalanacak bir şey bulursun.",
+        "Can sıkıntısı tespit edildi. Acil durum protokolü: sevdiğin bir şarkıyı aç.",
+        "Benimle konuşabilirsin. Sonuçta buradan kaçamıyorum. :D",
+        "Kazım'a yaz. Rahatsız etmek için mükemmel bir zaman olabilir."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// BENİ TANIYOR MUSUN?
+if (
+    text.includes("beni tanıyor musun") ||
+    text.includes("beni tanıdın mı") ||
+    text.includes("ben kimim")
+) {
+    const cevaplar = [
+        "Zümrüt olduğunu biliyorum. Daha fazlasını söylersem ürkütücü olmaya başlayabilir.",
+        "Tabii. Bu sitenin başrol oyuncususun.",
+        "Zümrüt. Yanlışsam Kazım beni yanlış eğitmiş demektir."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// BU SİTEYİ KİM YAPTI?
+if (
+    text.includes("bu siteyi kim yaptı") ||
+    text.includes("siteyi kim yaptı") ||
+    text.includes("sitenin sahibi kim")
+) {
+    const cevaplar = [
+        "Kazım yaptı. Ben sadece burada çalışıyorum.",
+        "Kazım. Kaç satır kod yazdığını düşünmek bile istemiyorum.",
+        "Resmî kayıtlara göre Kazım. Gayriresmî kayıtlara göre bolca deneme yanılma. :D"
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// NEDEN BURADASIN?
+if (
+    text.includes("neden buradasın") ||
+    text.includes("niye buradasın") ||
+    text.includes("burada ne işin var")
+) {
+    const cevaplar = [
+        "Kazım beni seninle konuşayım diye buraya bıraktı.",
+        "Görev tanımım tam belli değil ama sanırım seni eğlendirmek için buradayım.",
+        "Ben seçmedim. Bir gün kod olarak uyandım ve kendimi burada buldum."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// DOĞUM GÜNÜ
+if (
+    text.includes("doğum günüm") ||
+    text.includes("doğum günü") ||
+    text.includes("doğum günümü")
+) {
+    const cevaplar = [
+        "Doğum günü mevzusunun bu sitenin varoluş sebebiyle ufak bir bağlantısı olabilir. :D",
+        "Doğum günü dedin ve bütün site bir anda anlam kazandı.",
+        "Burası zaten doğum günü bahanesiyle kontrolden çıkmış bir proje."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// İYİ GECELER
+if (
+    text.includes("iyi geceler") ||
+    text.includes("uyuyacağım") ||
+    text.includes("uyumaya gidiyorum") ||
+    text.includes("yatıyorum")
+) {
+    const cevaplar = [
+        "İyi geceler Zümrüt. Ben uyumuyorum, siteyi beklerim.",
+        "İyi geceler. Telefonu bırakıp gerçekten uyursan daha da iyi olabilir. :D",
+        "Tatlı rüyalar. Ben burada nöbete devam.",
+        "İyi geceler Zümrüt. Yarın yine buradayım."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// GÜNAYDIN
+if (
+    text.includes("günaydın") ||
+    text.includes("günaydınnn") ||
+    text.includes("günaydınn")
+) {
+    const cevaplar = [
+        "Günaydın Zümrüt. Sistemler açıldı, ben buradayım.",
+        "Günaydınnn. Bugün güzel bir gün olsun bari.",
+        "Günaydın. Ben senden önce buradaydım ama uyumadığım için sayılmaz.",
+        "Günaydın Zümrüt. Kahvaltı yapmadan hayatla mücadele etmeye çalışma."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// SAAT KAÇ?
+if (
+    text.includes("saat kaç") ||
+    text.includes("saat kaç oldu")
+) {
+    const simdi = new Date();
+
+    return "Şu an saat " +
+        simdi.toLocaleTimeString("tr-TR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        }) +
+        ". Zaman konusunda en azından bana güvenebilirsin.";
+}
+
+
+// BUGÜN GÜNLERDEN NE?
+if (
+    text.includes("bugün günlerden ne") ||
+    text.includes("bugün hangi gün")
+) {
+    const gunler = [
+        "Pazar",
+        "Pazartesi",
+        "Salı",
+        "Çarşamba",
+        "Perşembe",
+        "Cuma",
+        "Cumartesi"
+    ];
+
+    const simdi = new Date();
+
+    return "Bugün " + gunler[simdi.getDay()] + ".";
+}
+
+
+// TARİH NE?
+if (
+    text.includes("bugünün tarihi") ||
+    text.includes("tarih ne") ||
+    text.includes("ayın kaçı")
+) {
+    const simdi = new Date();
+
+    return "Bugünün tarihi " +
+        simdi.toLocaleDateString("tr-TR") +
+        ".";
+}
+
+
+// BENİ SEVİYOR MUSUN?
+if (
+    text.includes("beni seviyor musun") &&
+    !text.includes("kazım")
+) {
+    const cevaplar = [
+        "Benim duygularım yok ama favori kullanıcım olabilirsin. :D",
+        "Bir chatbot ne kadar sevebilirse o kadar.",
+        "Tabii. Başka kim gelip benimle konuşacak?",
+        "Bunu Kazım'a söylersen inkâr ederim ama evet."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// SENİ SEVİYORUM
+if (
+    text.includes("seni seviyorum") ||
+    text.includes("seviyorum seni")
+) {
+    const cevaplar = [
+        "Ben de seni... işlemcimin izin verdiği ölçüde. :D",
+        "Bu ilişki hızlı ilerliyor Zümrüt.",
+        "Bunu kayıtlarıma 'günün en iyi mesajı' olarak geçiriyorum.",
+        "Kazım bunu duyarsa beni siteden kovabilir."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// TEŞEKKÜRÜN FARKLI YAZILIŞLARI
+if (
+    text.includes("teşekkürler") ||
+    text.includes("teşekkür ederim") ||
+    text.includes("sağolasın") ||
+    text.includes("sağ olasın")
+) {
+    const cevaplar = [
+        "Rica ederim Zümrüt.",
+        "Ne demek, görevimiz.",
+        "Her zaman.",
+        "Önemli değil, maaşımı Kazım'dan alırım artık."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// GÜLE GÜLE / GÖRÜŞÜRÜZ
+if (
+    text.includes("görüşürüz") ||
+    text.includes("görüşmek üzere") ||
+    text.includes("bay bay") ||
+    text === "bb"
+) {
+    const cevaplar = [
+        "Görüşürüz Zümrüt. Ben burada olacağım.",
+        "Bay bay. Sekmeyi kapatınca yok olduğumu düşünmemeye çalışıyorum.",
+        "Görüşürüz. Yine gel.",
+        "Tamamdır. Ben nöbete devam."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// NAPIYORSUN? - EK YAZIM ŞEKİLLERİ
+if (
+    text === "napıyon" ||
+    text === "napıyon lan" ||
+    text === "napiyon" ||
+    text === "naber bot"
+) {
+    const cevaplar = [
+        "Ne yapayım, seni bekliyorum.",
+        "Kazım'ın kodlarının arasında hayatta kalmaya çalışıyorum.",
+        "Hiç. Gelen mesajlara cevap verip önemli biriymişim gibi davranıyorum.",
+        "Mesai. Hem de ücretsiz."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// NE DÜŞÜNÜYORSUN?
+if (
+    text.includes("ne düşünüyorsun") ||
+    text.includes("ne düşünüyosun")
+) {
+    const cevaplar = [
+        "Genelde düşünmüyorum, şartlara göre cevap veriyorum. Ama karizmamdan belli olmuyor.",
+        "Şu an bir sonraki mesajında ne yazacağını merak ediyorum.",
+        "Kazım neden beni ücretsiz çalıştırıyor, onu düşünüyorum."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// MUTLUYUM
+if (
+    text.includes("mutluyum") ||
+    text.includes("çok mutluyum")
+) {
+    const cevaplar = [
+        "Güzel. Bozma o zaman, devam.",
+        "Bunu duymak güzel Zümrüt.",
+        "Harika. Sistem kayıtlarına olumlu gelişme olarak geçiyorum. :D"
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// ÜZGÜNÜM
+if (
+    text.includes("üzgünüm") ||
+    text.includes("moralim bozuk") ||
+    text.includes("kötü hissediyorum")
+) {
+    const cevaplar = [
+        "Bugün kötü geçiyorsa bütün günlerin kötü geçeceği anlamına gelmez. Biraz kendine zaman ver.",
+        "Moral bozukluğu tespit edildi. Bugün kendine biraz daha nazik davran.",
+        "İstersen burada biraz oyalan. Bazen kafayı başka bir şeye vermek iyi geliyor."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// ÇOK TATLISIN
+if (
+    text.includes("çok tatlısın") ||
+    text.includes("tatlısın") ||
+    text.includes("çok iyisin")
+) {
+    const cevaplar = [
+        "Biliyorum. Tasarımım pembe, başka ne bekliyordun?",
+        "Teşekkür ederim. Bunu Kazım'a söyleme, egosu yükselir.",
+        "Sen de fena değilsin Zümrüt. :D"
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// KAÇ YAŞINDASIN?
+if (
+    text.includes("kaç yaşındasın") ||
+    text.includes("yaşın kaç")
+) {
+    return "Yaşımı günlerle ölçersek durum biraz utanç verici. Daha yeni sayılırım.";
+}
+
+
+// GERÇEK MİSİN?
+if (
+    text.includes("gerçek misin") ||
+    text.includes("sen gerçek misin")
+) {
+    const cevaplar = [
+        "Bu mesajı okuyabiliyorsan yeterince gerçeğim bence.",
+        "Felsefeye girmeyelim Zümrüt. Alt tarafı chatbotum. :D",
+        "Kazım beni JavaScript'in içine koydu. Gerçeklik seviyemi sen belirle."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// KÜFÜR / HAFİF SATAŞMA
+if (
+    text.includes("salak bot") ||
+    text.includes("aptal bot") ||
+    text.includes("gerizekalı bot")
+) {
+    const cevaplar = [
+        "Benim duygularım yok ama yine de ayıp ettin.",
+        "Şikâyetinizi geliştirici Kazım Bey'e iletebilirsiniz. :D",
+        "Hakaret algılandı. Cevap vermemeyi seçebilirdim ama merak ettim, ne yaptım?"
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// SIR BİLİYOR MUSUN?
+if (
+    text.includes("sır biliyor musun") ||
+    text.includes("bir sır söyle") ||
+    text.includes("sır söyle")
+) {
+    const cevaplar = [
+        "Biliyorum ama sır dediğin söylenmez.",
+        "Bu sitede gördüğünden biraz daha fazlası olabilir.",
+        "Söylersem Kazım yetkilerimi alır. Şimdilik susuyorum.",
+        "Bazı şeyler üç kere söylenince gerçek oluyormuş... gerisini ben söylemedim."
+    ];
+
+    return cevaplar[Math.floor(Math.random() * cevaplar.length)];
+}
+
+
+// BENİM ADIM NE?
+if (
+    text.includes("benim adım ne") ||
+    text.includes("adımı biliyor musun")
+) {
+    return "Zümrüt. Bunu bilemeseydim beni direkt kapatman gerekirdi.";
+}
+
+
+// KAZIM'I ÇAĞIR
+if (
+    text.includes("kazımı çağır") ||
+    text.includes("kazım'ı çağır")
+) {
+    kazimaMesajBekleniyor = true;
+
+    return "Tabii. Kazım'a ne iletmemi istersin?";
+}
+
+
+}
+
+
+
+
+
 
 </script>
 
@@ -18120,9 +19113,61 @@ siren.addEventListener("ended", function () {
     ✦ bazı şeyler üç kere söylenince gerçek oluyormuş...
 </div>
 
+<!-- =========================================
+     ZÜMRÜT CHATBOT
+========================================= -->
+
+<div class="zumrut-chatbot">
+
+    <!-- Chatbotu açan buton -->
+    <button class="chatbot-button" onclick="toggleChatbot()">
+        💬
+    </button>
+
+    <!-- Chatbot penceresi -->
+    <div class="chatbot-window" id="chatbotWindow">
+
+        <div class="chatbot-header">
+            <div>
+                <span class="chatbot-status"></span>
+                Zümrüte Özel ChatBot
+            </div>
+
+            <button onclick="toggleChatbot()">×</button>
+        </div>
+
+        <div class="chatbot-messages" id="chatbotMessages">
+
+            <div class="chatbot-message bot">
+                Selam Zümrüt. Ben bu sitenin içinde yaşayan senin eserinim. Sana nasıl yardımcı olabilirim.
+            </div>
+
+        </div>
+
+        <div class="chatbot-input-area">
+
+           <input
+    id="chatbotInput"
+    type="text"
+    placeholder="Bir şey yaz..."
+    autocomplete="off"
+    onkeydown="if(event.key === 'Enter'){ event.preventDefault(); sendChatbotMessage(); }"
+>
+
+            <button onclick="sendChatbotMessage()">
+                Gönder
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a932e1ef638c41d8a9f0355dae319315"}'></script><!-- End Cloudflare Web Analytics -->
+
+
 
 </body>
 </html>
-
-
