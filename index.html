@@ -11785,6 +11785,8 @@ transform: translateX(-50%);
 
 
 
+<script src="chatbot-data.js"></script>
+
 
 
 <script>
@@ -18332,10 +18334,59 @@ siren.addEventListener("ended", function () {
 }
 
 
+
 /* =========================================
    ZÜMRÜT CHATBOT
 ========================================= */
+function findChatbotDataResponse(text) {
 
+    // chatbot-data.js yüklenmediyse hata vermesin
+    if (typeof chatbotData === "undefined") {
+        console.error("chatbot-data.js yüklenemedi.");
+        return null;
+    }
+
+    for (const intent of chatbotData) {
+
+        // Bu cevap bazı kelimeleri içeriyorsa kullanılmasın
+        if (
+            intent.exclude &&
+            intent.exclude.some(word => text.includes(word))
+        ) {
+            continue;
+        }
+
+        let matched = false;
+
+        // Tam eşleşmesi gereken cevaplar
+        if (
+            intent.exact &&
+            intent.exact.some(pattern => text === pattern)
+        ) {
+            matched = true;
+        }
+
+        // Mesajın içinde aranacak kelime/cümleler
+        if (
+            !matched &&
+            intent.patterns &&
+            intent.patterns.some(pattern => text.includes(pattern))
+        ) {
+            matched = true;
+        }
+
+        if (matched) {
+
+            const responses = intent.responses;
+
+            return responses[
+                Math.floor(Math.random() * responses.length)
+            ];
+        }
+    }
+
+    return null;
+}
 function toggleChatbot() {
     const chatbotWindow = document.getElementById("chatbotWindow");
 
@@ -18433,7 +18484,25 @@ function getChatbotResponse(message) {
         .toLocaleLowerCase("tr-TR")
         .trim();
 // KAZIM'A GÖNDERİLECEK MESAJI YAKALA
+
 if (kazimaMesajBekleniyor) {
+
+    // Kullanıcı mesaj göndermekten vazgeçerse
+    if (
+        text === "vazgeç" ||
+        text === "iptal" ||
+        text === "boşver" ||
+        text === "boş ver"
+    ) {
+        kazimaMesajBekleniyor = false;
+
+        return "Tamamdır. Kazım'a hiçbir şey göndermiyorum.";
+    }
+
+    // Çok kısa mesaj kontrolü
+    if (message.trim().length < 2) {
+        return "Bunu Kazım'a göndermeyeyim bence. Biraz daha açıklayıcı bir şey yaz. :D";
+    }
 
     kazimaMesajBekleniyor = false;
 
@@ -18445,11 +18514,14 @@ if (kazimaMesajBekleniyor) {
         botMessage.className = "chatbot-message bot";
 
         if (basarili) {
+
             botMessage.textContent =
                 "Mesajın Kazım'a ulaştı. Artık görmezden gelirse benim suçum değil. :D";
+
         } else {
+
             botMessage.textContent =
-                "Mesajı Kazım'a gönderirken bir sorun çıktı. Biraz sonra tekrar deneyebilirsin.";
+                "Mesaj Kazım'a ulaşmadı. Çok fazla mesaj gönderilmiş olabilir; biraz bekleyip tekrar deneyebilirsin.";
         }
 
         messages.appendChild(botMessage);
@@ -19079,15 +19151,34 @@ if (
 
 
 // KAZIM'I ÇAĞIR
+// KAZIM'A MESAJ GÖNDER
 if (
     text.includes("kazımı çağır") ||
-    text.includes("kazım'ı çağır")
+    text.includes("kazım'ı çağır") ||
+    text.includes("kazıma mesaj gönder") ||
+    text.includes("kazım'a mesaj gönder") ||
+    text.includes("kazıma bir şey söyle") ||
+    text.includes("kazım'a bir şey söyle") ||
+    text.includes("kazıma söyle") ||
+    text.includes("kazım'a söyle") ||
+    text.includes("kazıma ilet") ||
+    text.includes("kazım'a ilet") ||
+    text.includes("kazıma yaz") ||
+    text.includes("kazım'a yaz")
 ) {
     kazimaMesajBekleniyor = true;
 
-    return "Tabii. Kazım'a ne iletmemi istersin?";
+    return "Tabii. Kazım'a ne iletmemi istersin? Vazgeçersen “iptal” yazabilirsin.";
 }
 
+// DATASET CEVAPLARINI KONTROL ET
+const dataResponse = findChatbotDataResponse(text);
+
+if (dataResponse) {
+    return dataResponse;
+}
+
+return "Buna ne cevap vereceğimi henüz bilmiyorum. Beni biraz daha eğitmeniz gerekecek. :D";
 
 }
 
