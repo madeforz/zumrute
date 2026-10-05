@@ -10334,6 +10334,51 @@ transform: translateX(-50%);
         </p>
     </div>
 </div>
+
+<div class="guide-item">
+    <span>💌</span>
+    <div>
+        <strong>Mesaj Kutusu</strong>
+        <p>
+            Burada seni bekleyen küçük mesajlar var.
+            Arada kontrol etmeyi unutma; bazıları zamana göre değişebilir. :)
+        </p>
+    </div>
+</div>
+
+<div class="guide-item">
+    <span>🎁</span>
+    <div>
+        <strong>Günlük Sürpriz</strong>
+        <p>
+            Her gün seni farklı küçük bir sürpriz bekliyor.
+            Yarın tekrar gelmek için bahanen hazır. :D
+        </p>
+    </div>
+</div>
+
+<div class="guide-item">
+    <span>🎰</span>
+    <div>
+        <strong>Şansını Dene</strong>
+        <p>
+            Günde bir kez şansını deneyebilirsin.
+            Çıkan şeyi beğenmezsen maalesef kaderinle tartışman gerekiyor. :D
+        </p>
+    </div>
+</div>
+
+<div class="guide-item">
+    <span>💬</span>
+    <div>
+        <strong>Zümrüte Özel ChatBot</strong>
+        <p>
+            Orta alttaki butondan benimle konuşabilirsin.
+            Bazı şeyleri biliyorum, bazılarını ise öğrenmeye devam ediyorum. :D
+        </p>
+    </div>
+</div>
+
 </div>
         <div class="welcome-guide-secret">
             ✦ Bazı küçük şeyleri özellikle sakladım.
@@ -11635,8 +11680,31 @@ transform: translateX(-50%);
 
     <div>
         <small>Kazım'ı tanıma seviyesi</small>
-        <strong id="statKazimQuiz">-/3</strong>
+        <strong id="statKazimQuiz">-/5</strong>
     </div>
+    <div class="visit-stat">
+    <span>💌</span>
+    <div>
+        <small>Mesaj kutusunu açtı</small>
+        <strong id="statMailbox">Hayır</strong>
+    </div>
+</div>
+
+<div class="visit-stat">
+    <span>🎁</span>
+    <div>
+        <small>Günlük sürprizi açtı</small>
+        <strong id="statDailyGift">Hayır</strong>
+    </div>
+</div>
+
+<div class="visit-stat">
+    <span>🎰</span>
+    <div>
+        <small>Şansını denedi</small>
+        <strong id="statLuck">Hayır</strong>
+    </div>
+</div>
 </div>
 
     </div>
@@ -14411,7 +14479,32 @@ if (barbieStat) {
 }
 
 
+// MESAJ KUTUSU
+document.getElementById("statMailbox").textContent =
+    localStorage.getItem("zumrutOpenedMailbox") === "true"
+        ? "Evet ✓"
+        : "Hayır";
 
+// GÜNLÜK SÜRPRİZ
+document.getElementById("statDailyGift").textContent =
+    localStorage.getItem("zumrutOpenedDailyGift") === "true"
+        ? "Evet ✓"
+        : "Hayır";
+
+// ŞANSINI DENE
+document.getElementById("statLuck").textContent =
+    localStorage.getItem("zumrutUsedLuck") === "true"
+        ? "Evet ✓"
+        : "Hayır";
+
+
+// KAZIM QUIZ SONUCU
+const kazimQuizFinalScore = localStorage.getItem("kazimQuizFinalScore");
+
+document.getElementById("statKazimQuiz").textContent =
+    kazimQuizFinalScore !== null
+        ? kazimQuizFinalScore + "/5"
+        : "-/5";
 
     /* SONUCA GÖRE KÜÇÜK YORUM */
 
@@ -16727,6 +16820,7 @@ function openMailbox() {
     if (!mailbox) return;
 
     mailbox.classList.add("active");
+    localStorage.setItem("zumrutOpenedMailbox", "true");
 }
 
 
@@ -16999,7 +17093,7 @@ function revealDailySurprise() {
         "zumrutDailySurpriseOpened",
         todayKey
     );
-
+localStorage.setItem("zumrutOpenedDailyGift", "true");
 
     button.textContent =
         "Sürpriz açıldı";
@@ -17190,7 +17284,7 @@ function tryLuck() {
         ];
 
     localStorage.setItem("zumrutLuckUsed", todayKey);
-
+localStorage.setItem("zumrutUsedLuck", "true");
     content.innerHTML = `
         <div>${selectedMessage.message}</div>
     `;
@@ -18400,7 +18494,7 @@ function toggleChatbot() {
 }
 
 
-function sendChatbotMessage() {
+async function sendChatbotMessage() {
 
     const input = document.getElementById("chatbotInput");
     const messages = document.getElementById("chatbotMessages");
@@ -18428,14 +18522,38 @@ function sendChatbotMessage() {
 
 
 // BOT CEVABI
-setTimeout(() => {
+// BOT CEVABI
+setTimeout(async () => {
 
     const botMessage = document.createElement("div");
-
     botMessage.className = "chatbot-message bot";
-    botMessage.textContent = getChatbotResponse(text);
+    botMessage.textContent = "Düşünüyorum...";
 
     messages.appendChild(botMessage);
+    messages.scrollTop = messages.scrollHeight;
+// KAZIM'A MESAJ SİSTEMİNİ ÖNCE KONTROL ET
+const normalizedText = text.toLocaleLowerCase("tr-TR").trim();
+
+const kazimKomutu =
+    normalizedText.includes("kazımı çağır") ||
+    normalizedText.includes("kazım'ı çağır") ||
+    normalizedText.includes("kazıma mesaj gönder") ||
+    normalizedText.includes("kazım'a mesaj gönder") ||
+    normalizedText.includes("kazıma bir şey söyle") ||
+    normalizedText.includes("kazım'a bir şey söyle") ||
+    normalizedText.includes("kazıma söyle") ||
+    normalizedText.includes("kazım'a söyle") ||
+    normalizedText.includes("kazıma ilet") ||
+    normalizedText.includes("kazım'a ilet") ||
+    normalizedText.includes("kazıma yaz") ||
+    normalizedText.includes("kazım'a yaz");
+
+if (kazimaMesajBekleniyor || kazimKomutu) {
+    botMessage.textContent = getChatbotResponse(text);
+    messages.scrollTop = messages.scrollHeight;
+    return;
+}
+   botMessage.textContent = getChatbotResponse(text);
 
     messages.scrollTop = messages.scrollHeight;
 
