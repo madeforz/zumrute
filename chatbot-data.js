@@ -38,7 +38,7 @@ const chatbotData = [
 
         responses: [
             "İyiyim, takılıyorum burada. Sen nasılsın?",
-            "Ne olsun, sitenin içinde Kazım'ın yazdığı kodlarla hayatta kalmaya çalışıyorum.",
+            "Ne olsun, sitenin içinde Kazımın yazdığı kodlarla hayatta kalmaya çalışıyorum.",
             "İyiyim sayılır. Sonuçta bir internet sitesinin içinde yaşıyorum. :D",
             "Senden naber asıl?",
             "Aynı ya, gelen geçene cevap veriyorum. Yoğun mesai. Ama sakın alınma, sen çok daha özelsin.",
@@ -600,6 +600,21 @@ const chatbotData = [
         ]
     },
 
+    {
+    name: "zümrüt kim",
+    patterns: [
+        "zümrüt kim",
+        "zümrüt kimdir",
+        "zümrüt kimmiş",
+        "zümrüt hakkında ne biliyorsun",
+        "zümrüt hakkında ne biliyon",
+        "zümrütü tanıyor musun",
+        "zümrüt'ü tanıyor musun"
+    ],
+    responses: [
+        "26.09.2006'da dünyaya Kağıthane'de gelmiş. Zekâ seviyesi çok yüksek ama zamanında baaaazıııı yurtlara gitmesinden dolayı herhalde... bilemiyoruz. Neyse canım işte mühendis olmuş, akıllı başlı; Allah var güzel de bir kızdır. Herkes onun hakkında bilgiye sahip olamaz, zaten herkese de vermez. Bence bu konuyu fazla araştırma. Şayet Zümrüt'ü rahatsız etmen halinde Zümrüt'le değil, Kazım'la uğraşmak zorunda kalırsın."
+    ]
+},
 
     // =========================================
     // KAZIM BENİ ÖZLEDİ Mİ?
@@ -649,4 +664,5 @@ const chatbotData = [
         ]
     }
 
+    
 ];
